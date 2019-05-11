@@ -1,0 +1,10 @@
+.titulo-pagina {
+  padding: 20px;
+  text-align: center;
+}
+.titulo-pagina[style="background: white;"] {
+  padding: 40px 20px 30px;
+}
+.titulo-pagina h2 {
+  font-weight: 300;
+}
