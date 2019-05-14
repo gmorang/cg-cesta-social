@@ -40,7 +40,8 @@ const register = (
           bairro,
           cidade,
           estado,
-          complemento
+          complemento,
+          uid: firebase.auth().currentUser.uid
         });
     });
   return register;
