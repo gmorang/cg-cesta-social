@@ -5,6 +5,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import Grid from "@material-ui/core/Grid";
 import cep from "cep-promise";
+import actions from "../actions";
 
 class RegistroForm extends React.Component {
   constructor(props) {
@@ -51,6 +52,11 @@ class RegistroForm extends React.Component {
     });
   };
 
+  _handleCpf = text => {
+    this.setState({
+      cpf: text.currentTarget.value
+    });
+  };
   _handleCep = text => {
     this.setState({
       cep: text.currentTarget.value
@@ -99,6 +105,42 @@ class RegistroForm extends React.Component {
       complemento: text.currentTarget.value
     });
   };
+
+  _handleCadastraUsuario = async event => {
+    event.preventDefault();
+    let {
+      nome,
+      telefone,
+      cpf,
+      cep,
+      rua,
+      numero,
+      bairro,
+      cidade,
+      estado,
+      complemento,
+      email,
+      password
+    } = this.state;
+    try {
+      actions.register(
+        nome,
+        telefone,
+        cpf,
+        cep,
+        rua,
+        numero,
+        bairro,
+        cidade,
+        estado,
+        complemento,
+        email,
+        password
+      );
+    } catch (e) {
+      window.alert(e.message);
+    }
+  };
   render() {
     return (
       <form>
@@ -113,16 +155,28 @@ class RegistroForm extends React.Component {
             onChange={this._handleNome}
           />
         </FormControl>
-        <FormControl margin="normal" fullWidth>
-          <InputLabel htmlFor="telefone">Telefone</InputLabel>
-          <Input
-            value={this.state.telefone}
-            id="telefone"
-            name="telefone"
-            autoComplete="telefone"
-            onChange={this._handleTelefone}
-          />
-        </FormControl>
+        <Grid xs={12}>
+          <FormControl margin="normal" style={{ marginRight: 25 }}>
+            <InputLabel htmlFor="telefone">Telefone</InputLabel>
+            <Input
+              value={this.state.telefone}
+              id="telefone"
+              name="telefone"
+              autoComplete="telefone"
+              onChange={this._handleTelefone}
+            />
+          </FormControl>
+          <FormControl margin="normal">
+            <InputLabel htmlFor="cpf">CPF</InputLabel>
+            <Input
+              value={this.state.cpf}
+              id="cpf"
+              name="cpf"
+              autoComplete="cpf"
+              onChange={this._handleCpf}
+            />
+          </FormControl>
+        </Grid>
         <FormControl margin="normal">
           <InputLabel htmlFor="rua">CEP</InputLabel>
           <Input
@@ -231,6 +285,7 @@ class RegistroForm extends React.Component {
             variant="contained"
             color="primary"
             style={styles.submit}
+            onClick={this._handleCadastraUsuario}
           >
             Cadastrar
           </Button>

@@ -1,4 +1,4 @@
-import { firebase } from "../../../config/firebase/";
+import { firebase, firestore } from "../../../config/firebase/";
 
 const auth = (email, password) => {
   firebase
@@ -9,4 +9,41 @@ const auth = (email, password) => {
     });
 };
 
-export default { auth };
+const register = (
+  nome,
+  telefone,
+  cpf,
+  cep,
+  rua,
+  numero,
+  bairro,
+  cidade,
+  estado,
+  complemento,
+  email,
+  password
+) => {
+  firebase
+    .auth()
+    .createUserWithEmailAndPassword(email, password)
+    .then(() => {
+      firestore
+        .collection("users")
+        .doc(firebase.auth().currentUser.uid)
+        .set({
+          nome,
+          telefone,
+          cpf,
+          cep,
+          rua,
+          numero,
+          bairro,
+          cidade,
+          estado,
+          complemento
+        });
+    });
+  return register;
+};
+
+export default { auth, register };
