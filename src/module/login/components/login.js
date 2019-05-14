@@ -3,8 +3,7 @@ import Button from "@material-ui/core/Button";
 import FormControl from "@material-ui/core/FormControl";
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
-import { firebase } from "../../../config/firebase";
-import actions from "../actions/";
+import actions from "../actions";
 
 class Login extends React.Component {
   constructor(props) {

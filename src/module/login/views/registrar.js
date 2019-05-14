@@ -1,17 +1,22 @@
 import React from "react";
 
-class RegistroUsuario extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      nome: "",
-      cpf: "",
-      cnpj: "",
-      telefone: "",
-      email: "",
-      password: "",
-      endereco: { numero: "", rua: "", bairro: "" },
-      isLoading: false
-    };
+import Paper from "@material-ui/core/Paper";
+import ContentWrapper from "../../../components/content-wrapper";
+import Titulo from "../../../components/titulo-pagina";
+import RegistroForm from "../components/form-registro";
+
+class Registro extends React.Component {
+  render() {
+    const paperStyles = { padding: 24 };
+    return (
+      <ContentWrapper form={true}>
+        <Titulo>Cadastre-se</Titulo>
+        <Paper style={paperStyles}>
+          <RegistroForm />
+        </Paper>
+      </ContentWrapper>
+    );
   }
 }
+
+export default Registro;

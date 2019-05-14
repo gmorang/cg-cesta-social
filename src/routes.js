@@ -4,8 +4,8 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import NavBar from "./components/navbar";
 
 import Login from "./module/login/views/index";
-import Layout from "./components/layout";
 import Home from "./module/home/views/home";
+import Registro from "./module/login/views/registrar";
 
 class Routes extends React.Component {
   render() {
@@ -15,6 +15,7 @@ class Routes extends React.Component {
         <div>
           <Route exact path="/" component={Login} />
           <Route exact path="/profile" component={Home} />
+          <Route exact path="/registrar" component={Registro} />
         </div>
       </Router>
     );
