@@ -1,0 +1,22 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+}
+.navbar-brand {
+  width: 180px;
+  margin-left: 0 !important;
+}
+
+.carousel h3 {
+  color: #fff;
+  font-size: 4em;
+  font-weight: bold;
+  text-shadow: 2px 2px 8px #000;
+}
+.carousel h2 {
+  color: #fff;
+  font-size: 3em;
+  text-shadow: 1px 1px 6px #000;
+}

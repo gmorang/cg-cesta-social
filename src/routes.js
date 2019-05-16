@@ -11,9 +11,12 @@ class Routes extends React.Component {
   render() {
     return (
       <Router>
-        <NavBar />
         <div>
-          <Route exact path="/" component={Login} />
+          <Route exact path="/" component={Home} />
+        </div>
+        <div>
+          <NavBar />
+          <Route exact path="/login" component={Login} />
           <Route exact path="/profile" component={Home} />
           <Route exact path="/registrar" component={Registro} />
         </div>

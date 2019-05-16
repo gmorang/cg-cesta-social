@@ -44,6 +44,8 @@ class RegistroForm extends React.Component {
     this.setState({
       email: text.currentTarget.value
     });
+
+    console.log(this.state.email);
   };
 
   _handlePassword = text => {
