@@ -6,6 +6,7 @@ import NavBar from "./components/navbar";
 import Login from "./module/login/views/index";
 import Home from "./module/home/views/home";
 import Registro from "./module/login/views/registrar";
+import Perfil from "./module/perfil/views";
 
 class Routes extends React.Component {
   render() {
@@ -17,7 +18,7 @@ class Routes extends React.Component {
         <div>
           <NavBar />
           <Route exact path="/login" component={Login} />
-          <Route exact path="/profile" component={Home} />
+          <Route exact path="/profile" component={Perfil} />
           <Route exact path="/registrar" component={Registro} />
         </div>
       </Router>

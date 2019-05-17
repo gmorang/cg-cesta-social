@@ -4,7 +4,6 @@ import FormControl from "@material-ui/core/FormControl";
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
 import actions from "../actions";
-
 class Login extends React.Component {
   constructor(props) {
     super(props);

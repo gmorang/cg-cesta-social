@@ -1,5 +1,5 @@
 import { firebase, firestore } from "../../../config/firebase/";
-
+import profileActions from "../../perfil/actions/index";
 const auth = (email, password) => {
   firebase
     .auth()
