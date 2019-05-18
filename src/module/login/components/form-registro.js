@@ -139,6 +139,7 @@ class RegistroForm extends React.Component {
         email,
         password
       );
+      this.props.history.push("/");
     } catch (e) {
       window.alert(e.message);
     }

@@ -1,12 +1,14 @@
-import { firebase, firestore } from "../../../config/firebase/index";
+import { firebase } from "../../../config/firebase/index";
 
-const infoUser = () => {
-  firestore
+const infoUser = async () => {
+  let infoUser = await firebase
+    .firestore()
     .collection("users")
     .doc(firebase.auth().currentUser.uid)
-    .get();
-  let data = infoUser.data;
-  console.log(data);
+    .get()
+    .then(res => {
+      return res.data();
+    });
 };
 
 export default { infoUser };

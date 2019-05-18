@@ -5,24 +5,29 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import { Typography } from "@material-ui/core";
 import actions from "../actions";
-import Divider from "@material-ui/core/Divider";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
 import Pessoal from "./pessoal";
 import Endereço from "./endereço";
+import { firebase } from "../../../config/firebase/";
+import Loading from "../../../components/loading/";
 
 class Perfil extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: {}
+      user: null
     };
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    console.log(firebase.auth().currentUser.uid);
+    actions.infoUser().then(user => {
+      this.setState({ user: user });
+    });
+  }
 
   state = {
     value: 0
@@ -33,8 +38,12 @@ class Perfil extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
     const { value } = this.state;
+    const state = this.state;
+    if (!state.user) {
+      return <Loading />;
+    }
+    console.log("user", state.user);
     return (
       <ContentWrapper aling="top">
         <Titulo>Perfil</Titulo>

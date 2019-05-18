@@ -3,7 +3,6 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import { Typography } from "@material-ui/core";
 import Foto from "../../../img/team-4.jpg";
-import Divider from "@material-ui/core/Divider";
 import Phone from "@material-ui/icons/Phone";
 import Email from "@material-ui/icons/Email";
 import Lock from "@material-ui/icons/Lock";

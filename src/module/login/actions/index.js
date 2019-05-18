@@ -1,12 +1,16 @@
+import React from "react";
 import { firebase, firestore } from "../../../config/firebase/";
-import profileActions from "../../perfil/actions/index";
+
+import { Redirect } from "react-router-dom";
 const auth = (email, password) => {
   firebase
     .auth()
     .signInWithEmailAndPassword(email, password)
     .then(() => {
-      alert("usuario logado");
+      console.log("user", firebase.auth().currentUser.uid);
     });
+
+  return <Redirect to="/" />;
 };
 
 const register = (

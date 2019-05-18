@@ -2,7 +2,6 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
 import Location from "@material-ui/icons/LocationOn";
 
 class Endereço extends React.Component {
