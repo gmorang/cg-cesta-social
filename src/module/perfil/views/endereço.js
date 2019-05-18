@@ -3,6 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import Location from "@material-ui/icons/LocationOn";
+import { ProfileStore } from "../store";
 
 class Endereço extends React.Component {
   render() {
@@ -12,17 +13,28 @@ class Endereço extends React.Component {
           <div style={styles.box}>
             <Location />
             <Typography variant="h6">CPF</Typography>
+            <Typography variant="h6">{ProfileStore.userInfo.cpf}</Typography>
             <Typography variant="h6">Estado</Typography>
+            <Typography variant="h6">{ProfileStore.userInfo.estado}</Typography>
             <Typography variant="h6">Cidade</Typography>
+            <Typography variant="h6">{ProfileStore.userInfo.cidade}</Typography>
             <Typography variant="h6">CEP</Typography>
+            <Typography variant="h6">{ProfileStore.userInfo.cep}</Typography>
           </div>
 
           <div style={styles.box}>
             <Location />
             <Typography variant="h6">Rua</Typography>
+
+            <Typography variant="h6">{ProfileStore.userInfo.rua}</Typography>
             <Typography variant="h6">Número</Typography>
+            <Typography variant="h6">{ProfileStore.userInfo.numero}</Typography>
             <Typography variant="h6">Bairro</Typography>
+            <Typography variant="h6">{ProfileStore.userInfo.bairro}</Typography>
             <Typography variant="h6">Complemento</Typography>
+            <Typography variant="h6">
+              {ProfileStore.userInfo.complemento}
+            </Typography>
           </div>
         </Paper>
       </Grid>

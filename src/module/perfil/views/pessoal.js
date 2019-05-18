@@ -4,8 +4,7 @@ import Paper from "@material-ui/core/Paper";
 import { Typography } from "@material-ui/core";
 import Foto from "../../../img/team-4.jpg";
 import Phone from "@material-ui/icons/Phone";
-import Email from "@material-ui/icons/Email";
-import Lock from "@material-ui/icons/Lock";
+import { ProfileStore } from "../store";
 
 class Pessoal extends React.Component {
   render() {
@@ -15,14 +14,14 @@ class Pessoal extends React.Component {
           <div style={styles.box}>
             <img style={styles.pic} src={Foto} />
             <Typography variant="h6">Nome</Typography>
+            <Typography variant="h6">{ProfileStore.userInfo.nome}</Typography>
           </div>
           <div style={styles.box}>
             <Phone />
             <Typography variant="h6">Telefone</Typography>
-            <Email />
-            <Typography variant="h6">e-mail</Typography>
-            <Lock />
-            <Typography variant="h6">Password</Typography>
+            <Typography variant="h6">
+              {ProfileStore.userInfo.telefone}
+            </Typography>
           </div>
         </Paper>
       </Grid>

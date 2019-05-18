@@ -24,9 +24,7 @@ class Perfil extends React.Component {
 
   componentDidMount() {
     console.log(firebase.auth().currentUser.uid);
-    actions.infoUser().then(user => {
-      this.setState({ user: user });
-    });
+    actions.infoUser();
   }
 
   state = {
@@ -40,9 +38,7 @@ class Perfil extends React.Component {
   render() {
     const { value } = this.state;
     const state = this.state;
-    if (!state.user) {
-      return <Loading />;
-    }
+
     console.log("user", state.user);
     return (
       <ContentWrapper aling="top">
