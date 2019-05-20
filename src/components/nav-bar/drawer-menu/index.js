@@ -26,8 +26,8 @@ const Item = ({ icon, text, ...rest }) => {
 
 class DrawerMenu extends React.Component {
   render() {
-    const isLoggedIn = !!firebase.auth().currentUser.uid;
-    const isLoggedOut = !firebase.auth().currentUser.uid;
+    // const isLoggedIn = !!firebase.auth().currentUser.uid;
+    //const isLoggedOut = !firebase.auth().currentUser.uid;
 
     const { isOpen, toggleDrawer } = this.props;
 
@@ -53,39 +53,34 @@ class DrawerMenu extends React.Component {
             </IconButton>
           </Toolbar>
           <List>
-            {isLoggedIn && (
-              <React.Fragment>
-                <Item
-                  icon={<ProfileIcon />}
-                  text="Peril do Usuário"
-                  component={Link}
-                  to="/profile"
-                  onClick={toggleDrawer}
-                />
+            <React.Fragment>
+              <Item
+                icon={<ProfileIcon />}
+                text="Peril do Usuário"
+                component={Link}
+                to="/profile"
+                onClick={toggleDrawer}
+              />
 
-                <Item
-                  icon={<LibraryAdd />}
-                  text="Criar Requisição"
-                  component={Link}
-                  to="/nova-requisicao"
-                  onClick={toggleDrawer}
-                  divider
-                />
-              </React.Fragment>
-            )}
-            {isLoggedOut && (
-              <React.Fragment>
-                <Item
-                  icon={<ProfileIcon />}
-                  text="Login"
-                  component={Link}
-                  to="/login"
-                  onClick={toggleDrawer}
-                />
-              </React.Fragment>
-            )}
-
-            {isLoggedIn && <Item icon={<LogoutIcon />} text="Sair" />}
+              <Item
+                icon={<LibraryAdd />}
+                text="Criar Requisição"
+                component={Link}
+                to="/nova-requisicao"
+                onClick={toggleDrawer}
+                divider
+              />
+            </React.Fragment>
+            <React.Fragment>
+              <Item
+                icon={<ProfileIcon />}
+                text="Login"
+                component={Link}
+                to="/login"
+                onClick={toggleDrawer}
+              />
+            </React.Fragment>
+            <Item icon={<LogoutIcon />} text="Sair" />
           </List>
         </div>
         <div className="overlay" />
