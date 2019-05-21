@@ -8,7 +8,7 @@ import { ProfileStore } from "../store";
 class Endereço extends React.Component {
   render() {
     return (
-      <Grid item xs={"100%"}>
+      <Grid item xs={12}>
         <Paper style={styles.container}>
           <div style={styles.box}>
             <Location />
