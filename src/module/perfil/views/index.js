@@ -1,17 +1,10 @@
 import React from "react";
-import ContentWrapper from "../../../components/content-wrapper";
-import Titulo from "../../../components/titulo-pagina";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-import { Typography } from "@material-ui/core";
+import { Typography, Avatar } from "@material-ui/core";
+import Foto from "../../../assets/img/perfil.png";
 import actions from "../actions";
-import AppBar from "@material-ui/core/AppBar";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
-import PropTypes from "prop-types";
-import Pessoal from "./pessoal";
-import Endereço from "./endereço";
-import { firebase } from "../../../config/firebase/";
+import { withStyles } from "@material-ui/core/styles";
 import Loading from "../../../components/loading/";
 
 class Perfil extends React.Component {
@@ -23,67 +16,50 @@ class Perfil extends React.Component {
   }
 
   componentDidMount() {
-    console.log(firebase.auth().currentUser.uid);
-    actions.infoUser();
+    this.fetchUser();
   }
-
-  state = {
-    value: 0
-  };
-
-  handleChange = (event, value) => {
-    this.setState({ value });
-  };
 
   render() {
-    const { value } = this.state;
-    const state = this.state;
+    const { classes } = this.props;
+    const user = this.state.user;
 
-    console.log("user", state.user);
+    if (!this.state.user) {
+      return <Loading />;
+    }
     return (
-      <ContentWrapper aling="top">
-        <Titulo>Perfil</Titulo>
-        <Grid container spacing={24} style={{ justifyContent: "center" }}>
-          <Grid item xs={8}>
-            <Paper style={styles.root}>
-              <AppBar position="static">
-                <Tabs value={value} onChange={this.handleChange}>
-                  <Tab label="informaçoes pessoais" />
-                  <Tab label="Endereços" />
-                  <Tab label="Upload de arquivos" />
-                </Tabs>
-              </AppBar>
-              {value === 0 && <Pessoal />}
-              {value === 1 && <Endereço />}
-              {value === 2 && <TabContainer>Item Three</TabContainer>}
-            </Paper>
-          </Grid>
+      <Paper style={{ marginTop: 150, marginLeft: 24, marginRight: 24 }}>
+        <Grid
+          container
+          justify="center"
+          alignItems="center"
+          xs={12}
+          style={{ padding: 24 }}
+        >
+          <Avatar alt="foto-usuario" src={Foto} className={classes.bigAvatar} />
         </Grid>
-      </ContentWrapper>
+        <Grid container justify="center" alignItems="center">
+          <Typography variant="h6">{user.nome}</Typography>
+        </Grid>
+        <Grid container justify="center" alignItems="center">
+          <Typography variant="subtitle1">{user.telefone}</Typography>
+        </Grid>
+        <Grid container xs={12} />
+      </Paper>
     );
   }
+  fetchUser() {
+    actions.infoUser().then(data => {
+      this.setState({ user: data });
+    });
+  }
 }
 
-function TabContainer(props) {
-  return (
-    <Typography component="div" style={{ padding: 8 * 3 }}>
-      {props.children}
-    </Typography>
-  );
-}
-
-TabContainer.propTypes = {
-  children: PropTypes.node.isRequired
+const styles = {
+  bigAvatar: {
+    marginTop: -70,
+    width: 150,
+    height: 150
+  }
 };
 
-const styles = theme => ({
-  root: {
-    flexGrow: 1,
-    backgroundColor: theme.palette.background.paper,
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center"
-  }
-});
-
-export default Perfil;
+export default withStyles(styles)(Perfil);
