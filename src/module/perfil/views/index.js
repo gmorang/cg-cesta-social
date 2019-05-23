@@ -1,11 +1,12 @@
 import React from "react";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-import { Typography, Avatar } from "@material-ui/core";
+import { Typography, Avatar, Divider } from "@material-ui/core";
 import Foto from "../../../assets/img/perfil.png";
 import actions from "../actions";
 import { withStyles } from "@material-ui/core/styles";
 import Loading from "../../../components/loading/";
+import Endereco from "../components/endereco";
 
 class Perfil extends React.Component {
   constructor(props) {
@@ -43,7 +44,10 @@ class Perfil extends React.Component {
         <Grid container justify="center" alignItems="center">
           <Typography variant="subtitle1">{user.telefone}</Typography>
         </Grid>
-        <Grid container xs={12} />
+        <Divider style={{ margin: 20 }} />
+        <Grid container xs={12}>
+          <Endereco />
+        </Grid>
       </Paper>
     );
   }
