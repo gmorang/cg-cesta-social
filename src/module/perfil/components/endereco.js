@@ -6,19 +6,12 @@ import { Divider } from "@material-ui/core";
 
 class Endereco extends React.Component {
   render() {
-    const gridStyles = {
-      margin: 20,
-      borderRadius: 10,
-      boxShadow: `1px 1px 6px ${"#d3d3d3"}`,
-      padding: 10
-    };
-
     const typographyStyles = {
       paddingTop: 10,
       paddingLeft: 10
     };
     return (
-      <Grid item sm={6} xs={12} style={gridStyles}>
+      <div>
         <Grid container xs={12} style={{ paddingBottom: 10 }}>
           <PersonPinCircleOutlined
             style={{ marginRight: 10 }}
@@ -66,7 +59,7 @@ class Endereco extends React.Component {
             CEP
           </Typography>
         </Grid>
-      </Grid>
+      </div>
     );
   }
 }

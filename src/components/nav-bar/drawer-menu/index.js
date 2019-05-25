@@ -11,7 +11,6 @@ import LibraryAdd from "@material-ui/icons/LibraryAdd";
 import CloseIcon from "@material-ui/icons/Clear";
 import LogoutIcon from "@material-ui/icons/ExitToApp";
 import IconButton from "@material-ui/core/IconButton";
-import { firebase } from "../../../config/firebase/index";
 
 import "./index.css";
 

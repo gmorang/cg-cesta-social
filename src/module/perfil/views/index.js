@@ -7,6 +7,7 @@ import actions from "../actions";
 import { withStyles } from "@material-ui/core/styles";
 import Loading from "../../../components/loading/";
 import Endereco from "../components/endereco";
+import Arquivos from "../components/arquivos";
 
 class Perfil extends React.Component {
   constructor(props) {
@@ -21,6 +22,12 @@ class Perfil extends React.Component {
   }
 
   render() {
+    const gridStyles = {
+      borderRadius: 5,
+      boxShadow: `1px 1px 6px ${"#d3d3d3"}`,
+      padding: 10,
+      marginTop: 10
+    };
     const { classes } = this.props;
     const user = this.state.user;
 
@@ -28,7 +35,7 @@ class Perfil extends React.Component {
       return <Loading />;
     }
     return (
-      <Paper style={{ marginTop: 150, marginLeft: 24, marginRight: 24 }}>
+      <Paper style={{ marginTop: 150, marginLeft: 18, marginRight: 18 }}>
         <Grid
           container
           justify="center"
@@ -45,8 +52,20 @@ class Perfil extends React.Component {
           <Typography variant="subtitle1">{user.telefone}</Typography>
         </Grid>
         <Divider style={{ margin: 20 }} />
-        <Grid container xs={12}>
-          <Endereco />
+        <Grid
+          container
+          sm={12}
+          xs={12}
+          style={{ padding: 10 }}
+          justify="center"
+          alignItems="center"
+        >
+          <Grid item sm={6} xs={12} style={gridStyles}>
+            <Endereco />
+          </Grid>
+          <Grid item sm={6} xs={12} style={gridStyles}>
+            <Arquivos />
+          </Grid>
         </Grid>
       </Paper>
     );
