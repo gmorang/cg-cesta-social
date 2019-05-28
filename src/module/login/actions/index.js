@@ -1,7 +1,6 @@
 import React from "react";
 import { firebase, firestore } from "../../../config/firebase/";
 
-import { Redirect } from "react-router-dom";
 const auth = (email, password) => {
   firebase
     .auth()
@@ -9,8 +8,6 @@ const auth = (email, password) => {
     .then(() => {
       console.log("user", firebase.auth().currentUser.uid);
     });
-
-  return <Redirect to="/" />;
 };
 
 const register = (

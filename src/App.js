@@ -1,10 +1,10 @@
 import React from "react";
-import Routes from "./routes";
+import Wrapper from "./routes";
 
 function App() {
   return (
     <div className="App">
-      <Routes />
+      <Wrapper />
     </div>
   );
 }
