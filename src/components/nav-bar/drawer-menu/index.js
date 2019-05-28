@@ -12,6 +12,8 @@ import CloseIcon from "@material-ui/icons/Clear";
 import LogoutIcon from "@material-ui/icons/ExitToApp";
 import IconButton from "@material-ui/core/IconButton";
 
+import { firebase } from "../../../config/firebase/";
+
 import "./index.css";
 
 const Item = ({ icon, text, ...rest }) => {
@@ -79,12 +81,30 @@ class DrawerMenu extends React.Component {
                 onClick={toggleDrawer}
               />
             </React.Fragment>
-            <Item icon={<LogoutIcon />} text="Sair" />
+            <Item
+              icon={<LogoutIcon />}
+              onClick={this._handleLogOut}
+              text="Sair"
+            />
           </List>
         </div>
         <div className="overlay" />
       </div>
     );
+  }
+
+  _handleLogOut() {
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        // Sign-out successful.
+        alert("Você saiu!");
+      })
+      .catch(error => {
+        // An error happened
+        console.log(error);
+      });
   }
 }
 
