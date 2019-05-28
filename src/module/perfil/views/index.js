@@ -40,7 +40,6 @@ class Perfil extends React.Component {
           container
           justify="center"
           alignItems="center"
-          xs={12}
           style={{ padding: 24 }}
         >
           <Avatar alt="foto-usuario" src={Foto} className={classes.bigAvatar} />
@@ -54,8 +53,6 @@ class Perfil extends React.Component {
         <Divider style={{ margin: 20 }} />
         <Grid
           container
-          sm={12}
-          xs={12}
           style={{ padding: 10 }}
           justify="center"
           alignItems="center"

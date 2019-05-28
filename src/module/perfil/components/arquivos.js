@@ -9,7 +9,7 @@ class Arquivos extends React.Component {
   render() {
     return (
       <div>
-        <Grid container xs={12} style={{ paddingBottom: 10 }}>
+        <Grid container style={{ paddingBottom: 10 }}>
           <FileCopyOutlined fontSize="large" style={{ marginRight: 10 }} />
           <Typography variant="h6" tyle={{ marginTop: 5 }}>
             Arquivos
@@ -25,7 +25,7 @@ class Arquivos extends React.Component {
             </div>
           )}
         </Dropzone>
-        <Grid container xs={12} style={{ padding: 10 }}>
+        <Grid container style={{ padding: 10 }}>
           <Typography variant="body1">Comprovante</Typography>
           <InsertDriveFile fontSize="small" style={{ marginRight: 10 }} />
         </Grid>

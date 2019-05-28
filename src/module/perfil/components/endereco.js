@@ -14,7 +14,7 @@ class Endereco extends React.Component {
     const { user } = this.props;
     return (
       <div>
-        <Grid container xs={12} style={{ paddingBottom: 10 }}>
+        <Grid container style={{ paddingBottom: 10 }}>
           <PersonPinCircleOutlined
             style={{ marginRight: 10 }}
             fontSize="large"
@@ -25,7 +25,7 @@ class Endereco extends React.Component {
         </Grid>
 
         <Divider style={{ margin: 10 }} />
-        <Grid container xs={12}>
+        <Grid container>
           <Typography
             style={typographyStyles}
             variant="subtitle1"
@@ -34,7 +34,7 @@ class Endereco extends React.Component {
             {user.rua}, {user.numero}
           </Typography>
         </Grid>
-        <Grid container xs={12}>
+        <Grid container>
           <Typography
             style={typographyStyles}
             variant="subtitle1"
@@ -43,7 +43,7 @@ class Endereco extends React.Component {
             {user.bairro}
           </Typography>
         </Grid>
-        <Grid container xs={12}>
+        <Grid container>
           <Typography
             style={typographyStyles}
             variant="subtitle1"
@@ -52,7 +52,7 @@ class Endereco extends React.Component {
             {user.complemento}
           </Typography>
         </Grid>
-        <Grid container xs={12}>
+        <Grid container>
           <Typography
             style={typographyStyles}
             variant="subtitle1"
