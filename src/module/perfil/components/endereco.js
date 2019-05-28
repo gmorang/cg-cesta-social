@@ -10,6 +10,8 @@ class Endereco extends React.Component {
       paddingTop: 10,
       paddingLeft: 10
     };
+
+    const { user } = this.props;
     return (
       <div>
         <Grid container xs={12} style={{ paddingBottom: 10 }}>
@@ -29,7 +31,7 @@ class Endereco extends React.Component {
             variant="subtitle1"
             color="textSecondary"
           >
-            Rua teste
+            {user.rua}, {user.numero}
           </Typography>
         </Grid>
         <Grid container xs={12}>
@@ -38,7 +40,7 @@ class Endereco extends React.Component {
             variant="subtitle1"
             color="textSecondary"
           >
-            Bairro
+            {user.bairro}
           </Typography>
         </Grid>
         <Grid container xs={12}>
@@ -47,7 +49,7 @@ class Endereco extends React.Component {
             variant="subtitle1"
             color="textSecondary"
           >
-            Complemento
+            {user.complemento}
           </Typography>
         </Grid>
         <Grid container xs={12}>
@@ -56,7 +58,7 @@ class Endereco extends React.Component {
             variant="subtitle1"
             color="textSecondary"
           >
-            CEP
+            {user.cep}
           </Typography>
         </Grid>
       </div>

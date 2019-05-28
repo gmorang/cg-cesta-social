@@ -61,7 +61,7 @@ class Perfil extends React.Component {
           alignItems="center"
         >
           <Grid item sm={6} xs={12} style={gridStyles}>
-            <Endereco />
+            <Endereco user={this.state.user} />
           </Grid>
           <Grid item sm={6} xs={12} style={gridStyles}>
             <Arquivos />
