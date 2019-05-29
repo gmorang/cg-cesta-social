@@ -1,11 +1,33 @@
 import React from "react";
-import { Grid, Typography, Divider } from "@material-ui/core";
+import { Grid, Typography, Divider, Button, Input } from "@material-ui/core";
 import FileCopyOutlined from "@material-ui/icons/FileCopyOutlined";
 import InsertDriveFile from "@material-ui/icons/InsertDriveFileOutlined";
-import Dropzone from "react-dropzone";
+
+import actions from "../actions/";
+
 import "./index.css";
 
 class Arquivos extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      file: null,
+      url: ""
+    };
+  }
+
+  handleChange = e => {
+    if (e.target.files[0]) {
+      const file = e.target.files[0];
+      this.setState({ file: file });
+      console.log(this.state.file);
+    }
+  };
+  handleUpload = () => {
+    const { file } = this.state;
+    actions.uploadFile(file);
+  };
+
   render() {
     return (
       <div>
@@ -17,14 +39,8 @@ class Arquivos extends React.Component {
         </Grid>
 
         <Divider style={{ margin: 10 }} />
-        <Dropzone onDropAccepted={this.handleUpload}>
-          {({ getRootProps, getInputProps }) => (
-            <div className="upload" {...getRootProps()}>
-              <input {...getInputProps()} />
-              <p>Arraste Arquivos ou clique aqui</p>
-            </div>
-          )}
-        </Dropzone>
+        <Input type="file" onChange={this.handleChange} />
+        <Button onClick={this.handleUpload}>Salvar</Button>
         <Grid container style={{ padding: 10 }}>
           <Typography variant="body1">Comprovante</Typography>
           <InsertDriveFile fontSize="small" style={{ marginRight: 10 }} />
