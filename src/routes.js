@@ -9,6 +9,7 @@ import Home from "./module/home/views/home";
 import Registro from "./module/login/views/registrar";
 import Perfil from "./module/perfil/views";
 import PrivateRoute from "./private-route";
+import Requisicao from "./module/requisição/views";
 
 class Routes extends React.Component {
   state = {
@@ -58,6 +59,7 @@ class Routes extends React.Component {
             authenticated={authenticated}
             component={Perfil}
           />
+          <PrivateRoute exact path="/nova-requisicao" authenticated={authenticated} component={Requisicao}/>
           <Route exact path="/registrar" component={Registro} />
         </div>
       </Router>
