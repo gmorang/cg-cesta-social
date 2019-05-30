@@ -1,5 +1,5 @@
 import * as React from "react";
-import { BrowserRouter, Route, withRouter, Switch } from "react-router-dom";
+import { BrowserRouter, Route, withRouter } from "react-router-dom";
 
 import { firebase } from "./config/firebase";
 
@@ -7,7 +7,6 @@ import Loading from "./components/loading/";
 
 import NavBar from "./components/nav-bar";
 import Login from "./module/login/views/index";
-import Home from "./module/home/views/home";
 import Registro from "./module/login/views/registrar";
 import Perfil from "./module/perfil/views";
 import PrivateRoute from "./private-route";
@@ -37,7 +36,6 @@ class Routes extends React.Component {
           currentUser: null,
           loading: false
         });
-        this.props.history.push("/");
       }
     });
   }

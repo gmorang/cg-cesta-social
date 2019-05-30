@@ -33,10 +33,23 @@ export default {
           .getDownloadURL()
           .then(url => {
             console.log(url);
+            this.saveInfoFirestore(file, url);
           });
       }
     );
 
     return uploadTask;
+  },
+
+  saveInfoFirestore(file, url) {
+    return firebase
+      .firestore()
+      .collection("arquivos-user")
+      .doc(firebase.auth().currentUser.uid)
+      .set({
+        nome: file.name,
+        tipo: file.type,
+        url: url
+      });
   }
 };
