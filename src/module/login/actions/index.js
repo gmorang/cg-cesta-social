@@ -1,4 +1,3 @@
-import React from "react";
 import { firebase, firestore } from "../../../config/firebase/";
 
 const auth = (email, password) => {

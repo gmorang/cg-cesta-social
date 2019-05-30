@@ -30,7 +30,6 @@ class Routes extends React.Component {
           currentUser: user,
           loading: false
         });
-        this.props.history.push("/profile");
       } else {
         this.setState({
           authenticated: false,
