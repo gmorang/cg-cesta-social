@@ -10,6 +10,7 @@ import Login from "./module/login/views/index";
 import Registro from "./module/login/views/registrar";
 import Perfil from "./module/perfil/views";
 import PrivateRoute from "./private-route";
+import Requisicao from "./module/requisição/views";
 
 class Routes extends React.Component {
   constructor(props) {
@@ -55,6 +56,13 @@ class Routes extends React.Component {
           component={Perfil}
         />
         <Route exact path="/registrar" component={Registro} />
+
+        <PrivateRoute
+          exact
+          path="/nova-requisicao"
+          authenticated={authenticated}
+          component={Requisicao}
+        />
       </React.Fragment>
     );
   }
