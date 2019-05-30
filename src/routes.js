@@ -5,6 +5,7 @@ import { firebase } from "./config/firebase";
 
 import Loading from "./components/loading/";
 
+//import das classes(telas)
 import NavBar from "./components/nav-bar";
 import Login from "./module/login/views/index";
 import Registro from "./module/login/views/registrar";
@@ -15,6 +16,7 @@ import Requisicao from "./module/requisição/views";
 class Routes extends React.Component {
   constructor(props) {
     super(props);
+    //define as variaveis de estado
     this.state = {
       loading: true,
       authenticated: false,
@@ -23,6 +25,7 @@ class Routes extends React.Component {
   }
 
   componentWillMount() {
+    //verifica se o usuario esta logado
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.setState({
@@ -30,12 +33,14 @@ class Routes extends React.Component {
           currentUser: user,
           loading: false
         });
+        this.props.history.push("/perfil");
       } else {
         this.setState({
           authenticated: false,
           currentUser: null,
           loading: false
         });
+        this.props.history.push("/");
       }
     });
   }
@@ -50,7 +55,7 @@ class Routes extends React.Component {
         <Route exact path="/" component={Login} />
         <PrivateRoute
           exact
-          path="/profile"
+          path="/perfil"
           authenticated={authenticated}
           component={Perfil}
         />

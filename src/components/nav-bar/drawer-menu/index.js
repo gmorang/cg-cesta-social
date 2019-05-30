@@ -59,7 +59,7 @@ class DrawerMenu extends React.Component {
                 icon={<ProfileIcon />}
                 text="Peril do Usuário"
                 component={Link}
-                to="/profile"
+                to="/perfil"
                 onClick={toggleDrawer}
               />
 
@@ -77,7 +77,7 @@ class DrawerMenu extends React.Component {
                 icon={<ProfileIcon />}
                 text="Login"
                 component={Link}
-                to="/login"
+                to="/"
                 onClick={toggleDrawer}
               />
             </React.Fragment>

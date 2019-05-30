@@ -4,6 +4,10 @@ import FormControl from "@material-ui/core/FormControl";
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
 import actions from "../actions";
+import Typography from "@material-ui/core/Typography";
+import { Link } from "react-router-dom";
+
+import { withRouter } from "react-router-dom";
 class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -12,6 +16,14 @@ class Login extends React.Component {
       password: ""
     };
   }
+
+  /**
+   * Handle register
+   */
+  _handleRegister = () => {
+    this.props.history.push("/registrar");
+  };
+
   _handleEmail = text => {
     this.setState({
       email: text.currentTarget.value
@@ -67,6 +79,14 @@ class Login extends React.Component {
         >
           Login
         </Button>
+        <Link to="/registrar">
+          <Typography
+            color="secondary"
+            style={{ textAlign: "center", color: "#333", marginTop: 25 }}
+          >
+            Não possui cadastro? Cadastre-se
+          </Typography>
+        </Link>
       </form>
     );
   }
@@ -95,4 +115,4 @@ const styles = {
   }
 };
 
-export default Login;
+export default withRouter(Login);
