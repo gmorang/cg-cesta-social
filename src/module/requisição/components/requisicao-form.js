@@ -9,6 +9,18 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import NavigationIcon from "@material-ui/icons/Navigation";
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 
+const useStyles = makeStyles(theme => ({
+  margin: {
+    margin: theme.spacing(1),
+  },
+  extendedIcon: {
+    marginRight: theme.spacing(1),
+  },
+}));
+
+function ButtonSizes() {
+  const classes = useStyles();
+
 class RequisicaoForm extends React.Component {
   render() {
     return (
@@ -99,6 +111,18 @@ class RequisicaoForm extends React.Component {
             autoComplete="status"
             onChange={this.handleTipodecesta}
           />
+          <div>
+            <Fab
+              variant="extended"
+              size="small"
+              color="primary"
+              aria-label="Add"
+              className={classes.margin}
+            >
+              <NavigationIcon className={classes.extendedIcon} />
+              Extended
+            </Fab>
+          </div>
         </FormControl>
       </form>
     );
