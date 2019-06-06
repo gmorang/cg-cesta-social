@@ -158,7 +158,7 @@ class RegistroForm extends React.Component {
             onChange={this._handleNome}
           />
         </FormControl>
-        <Grid xs={12}>
+        <Grid item xs={12}>
           <FormControl margin="normal" style={{ marginRight: 25 }}>
             <InputLabel htmlFor="telefone">Telefone</InputLabel>
             <Input

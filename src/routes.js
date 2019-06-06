@@ -29,15 +29,11 @@ class Routes extends React.Component {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.setState({
-          authenticated: true,
-          currentUser: user,
           loading: false
         });
         this.props.history.push("/perfil");
       } else {
         this.setState({
-          authenticated: false,
-          currentUser: null,
           loading: false
         });
         this.props.history.push("/");
@@ -45,28 +41,17 @@ class Routes extends React.Component {
     });
   }
   render() {
-    const { authenticated, loading } = this.state;
+    const { loading } = this.state;
     if (loading) {
       return <Loading />;
     }
     return (
       <React.Fragment>
         <NavBar />
+        <PrivateRoute exact path="/perfil" component={Perfil} />
+        <PrivateRoute exact path="/nova-requisicao" component={Requisicao} />
         <Route exact path="/" component={Login} />
-        <PrivateRoute
-          exact
-          path="/perfil"
-          authenticated={authenticated}
-          component={Perfil}
-        />
         <Route exact path="/registrar" component={Registro} />
-
-        <PrivateRoute
-          exact
-          path="/nova-requisicao"
-          authenticated={authenticated}
-          component={Requisicao}
-        />
       </React.Fragment>
     );
   }
