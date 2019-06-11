@@ -3,7 +3,7 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import { Typography, Avatar, Divider } from "@material-ui/core";
 import Foto from "../../../assets/img/perfil.png";
-import actions from "../actions";
+import actions from "../../../actions/";
 import { withStyles } from "@material-ui/core/styles";
 import Loading from "../../../components/loading/";
 import Endereco from "../components/endereco";
@@ -57,18 +57,15 @@ class Perfil extends React.Component {
           justify="center"
           alignItems="center"
         >
-          <Grid item sm={6} xs={12} style={gridStyles}>
+          <Grid item sm={12} xs={12} style={gridStyles}>
             <Endereco user={this.state.user} />
-          </Grid>
-          <Grid item sm={6} xs={12} style={gridStyles}>
-            <Arquivos />
           </Grid>
         </Grid>
       </Paper>
     );
   }
   fetchUser() {
-    actions.infoUser().then(data => {
+    actions.user.infoUser().then(data => {
       this.setState({ user: data });
     });
   }

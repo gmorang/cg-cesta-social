@@ -11,6 +11,8 @@ import {
   Button
 } from "@material-ui/core";
 import { withRouter } from "react-router-dom";
+import actions from "../../../actions";
+import Loading from "../../../components/loading";
 
 class RequisicaoForm extends React.Component {
   constructor(props) {
@@ -36,16 +38,128 @@ class RequisicaoForm extends React.Component {
     };
   }
 
+  /**Funções para atualizar as variaveis de estado */
   _handleNome = text => {
     this.setState({
-      infoPessoais: {
-        ...this.state.requisicao.infoPessoais,
-        nome: text.currentTarget.value
+      requisicao: {
+        ...this.state.requisicao,
+        infoPessoais: {
+          nome: text.currentTarget.value
+        }
       }
     });
     console.log(this.state.requisicao.infoPessoais.nome);
   };
 
+  _handleTelefone = text => {
+    this.setState({
+      requisicao: {
+        ...this.state.requisicao,
+        infoPessoais: {
+          telefone: text.currentTarget.value
+        }
+      }
+    });
+    console.log(this.state.requisicao.infoPessoais.telefone);
+  };
+
+  _handleCpf = text => {
+    this.setState({
+      requisicao: {
+        ...this.state.requisicao,
+        infoPessoais: {
+          cpf: text.currentTarget.value
+        }
+      }
+    });
+    console.log(this.state.requisicao.infoPessoais.cpf);
+  };
+
+  _handleDependentes = text => {
+    this.setState({
+      requisicao: {
+        ...this.state.requisicao,
+        infoPessoais: {
+          dependentes: text.currentTarget.value
+        }
+      }
+    });
+    console.log(this.state.requisicao.infoPessoais.dependentes);
+  };
+
+  _handleNomeOng = text => {
+    this.setState({
+      requisicao: {
+        ...this.state.requisicao,
+        ong: {
+          nome: text.currentTarget.value
+        }
+      }
+    });
+    console.log(this.state.requisicao.ong.nome);
+  };
+
+  _handleSituacao = text => {
+    this.setState({
+      requisicao: {
+        ...this.state.requisicao,
+        renda: {
+          situacao: text.currentTarget.value
+        }
+      }
+    });
+    console.log(this.state.requisicao.renda.situacao);
+  };
+
+  _handleProfissao = text => {
+    this.setState({
+      requisicao: {
+        ...this.state.requisicao,
+        renda: {
+          profissao: text.currentTarget.value
+        }
+      }
+    });
+    console.log(this.state.requisicao.renda.profissao);
+  };
+
+  _handleRendaFamiliar = text => {
+    this.setState({
+      requisicao: {
+        ...this.state.requisicao,
+        renda: {
+          rendaFamiliar: text.currentTarget.value
+        }
+      }
+    });
+    console.log(this.state.requisicao.renda.rendaFamiliar);
+  };
+
+  _handleRendaPessoal = text => {
+    this.setState({
+      requisicao: {
+        ...this.state.requisicao,
+        renda: {
+          rendaPessoal: text.currentTarget.value
+        }
+      }
+    });
+    console.log(this.state.requisicao.renda.rendaPessoal);
+  };
+
+  /**
+   * Função para criar requisição
+   */
+  criaRequisicao = async event => {
+    event.preventDefault();
+    let { requisicao } = this.state;
+    console.log(requisicao);
+    try {
+      actions.requisicao.criaRequisicao(requisicao);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   render() {
     return (
       <div>
@@ -104,9 +218,9 @@ class RequisicaoForm extends React.Component {
                 id="ong"
                 name="ong"
                 value={this.state.requisicao.ong.nome}
-                onChange={this.handleNomeOng}
+                onChange={this._handleNomeOng}
               >
-                <MenuItem value="">
+                <MenuItem value={this.state.requisicao.ong.nome}>
                   <em>None</em>
                 </MenuItem>
                 <MenuItem value={10}>Ten</MenuItem>
@@ -123,7 +237,7 @@ class RequisicaoForm extends React.Component {
                 id="situacao"
                 name="situacao"
                 value={this.state.requisicao.renda.situacao}
-                onChange={this.handleSituacao}
+                onChange={this._handleSituacao}
               >
                 <MenuItem value="">
                   <em>None</em>
@@ -139,7 +253,7 @@ class RequisicaoForm extends React.Component {
                 name="profissao"
                 autoComplete="profissao"
                 value={this.state.requisicao.renda.profissao}
-                onChange={this.handleProfissao}
+                onChange={this._handleProfissao}
               />
             </FormControl>
             <Grid container style={{ marginTop: 10 }}>
@@ -151,7 +265,7 @@ class RequisicaoForm extends React.Component {
                     <InputAdornment position="start">$</InputAdornment>
                   }
                   value={this.state.requisicao.renda.rendaFamiliar}
-                  onChange={this.handleRendaFamiliar}
+                  onChange={this._handleRendaFamiliar}
                 />
               </FormControl>
               <FormControl>
@@ -162,7 +276,7 @@ class RequisicaoForm extends React.Component {
                     <InputAdornment position="start">$</InputAdornment>
                   }
                   value={this.state.requisicao.renda.rendaPessoal}
-                  onChange={this.handleRendaPessoal}
+                  onChange={this._handleRendaPessoal}
                 />
               </FormControl>
             </Grid>
@@ -173,7 +287,7 @@ class RequisicaoForm extends React.Component {
               variant="contained"
               color="primary"
               style={styles.submit}
-              onClick={this._handleCadastraUsuario}
+              onClick={this.criaRequisicao}
             >
               Enviar Requisição
             </Button>
