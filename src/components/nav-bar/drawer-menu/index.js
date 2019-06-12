@@ -11,6 +11,7 @@ import LibraryAdd from "@material-ui/icons/LibraryAdd";
 import CloseIcon from "@material-ui/icons/Clear";
 import LogoutIcon from "@material-ui/icons/ExitToApp";
 import IconButton from "@material-ui/core/IconButton";
+import LibraryBooks from "@material-ui/icons/LibraryBooks";
 
 import { firebase } from "../../../config/firebase/";
 
@@ -68,6 +69,13 @@ class DrawerMenu extends React.Component {
                 text="Criar Requisição"
                 component={Link}
                 to="/nova-requisicao"
+                onClick={toggleDrawer}
+              />
+              <Item
+                icon={<LibraryBooks />}
+                text="Requisicoes"
+                component={Link}
+                to="/requisicoes"
                 onClick={toggleDrawer}
                 divider
               />

@@ -12,6 +12,8 @@ import Registro from "./module/login/views/registrar";
 import Perfil from "./module/perfil/views";
 import PrivateRoute from "./private-route";
 import Requisicao from "./module/requisição/views";
+import Requisicoes from "./module/requisição/views/lista-requisicao";
+import RequisicaoDetails from "./module/requisição/views/requisicao-details";
 
 class Routes extends React.Component {
   constructor(props) {
@@ -50,6 +52,12 @@ class Routes extends React.Component {
         <NavBar />
         <PrivateRoute exact path="/perfil" component={Perfil} />
         <PrivateRoute exact path="/nova-requisicao" component={Requisicao} />
+        <PrivateRoute exact path="/requisicoes" component={Requisicoes} />
+        <PrivateRoute
+          exact
+          path="/requisicoes/:idRequisicao"
+          component={RequisicaoDetails}
+        />
         <Route exact path="/" component={Login} />
         <Route exact path="/registrar" component={Registro} />
       </React.Fragment>
