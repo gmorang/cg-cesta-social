@@ -4,7 +4,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
-import Logo from "../../assets/img/logo.png";
+import Logo from "../../assets/img/icon-branco.png";
 
 class AppHeader extends React.Component {
   render() {
@@ -31,7 +31,7 @@ class AppHeader extends React.Component {
             </Grid>
           </Grid>
           <a href="/" target="_blank" rel="noopener noreferrer">
-            <img style={{ width: "50px" }} src={Logo} alt="logo" />
+            <img style={{ width: 40 }} src={Logo} alt="logo" />
           </a>
         </Toolbar>
       </AppBar>
