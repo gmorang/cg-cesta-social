@@ -141,6 +141,7 @@ class RequisicaoForm extends React.Component {
 
     try {
       actions.requisicao.criaRequisicao(state);
+      this.props.history.push("/perfil");
     } catch (err) {
       console.log(err);
     }

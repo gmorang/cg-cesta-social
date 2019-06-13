@@ -7,6 +7,7 @@ export const criaRequisicao = requisicao => {
     .set({ requisicao, user: firebase.auth().currentUser.uid })
     .then(response => {
       console.log(response);
+      alert("Requisicao criada");
     })
     .catch(err => {
       console.log(err);
@@ -18,9 +19,10 @@ export const listaRequisicao = () => {
     .collection("requisicao")
     .get()
     .then(querySnapshot => {
-      querySnapshot.forEach(doc => {
+      const data = querySnapshot.forEach(doc => {
         console.log(doc.data());
         doc.data();
+        return data;
       });
     })
     .catch(err => {

@@ -9,8 +9,10 @@ import {
   Hidden,
   Grid
 } from "@material-ui/core";
-import RequisicaoRow from "../components/rquisicao-row";
+import { withRouter } from "react-router-dom";
 
+import RequisicaoRow from "../components/rquisicao-row";
+import actions from "../../../actions/";
 import Titulo from "../../../components/titulo-pagina";
 
 class Requisicoes extends React.Component {
@@ -64,6 +66,10 @@ class Requisicoes extends React.Component {
     };
   }
 
+  componentDidMount() {
+    this.fetchRequisicoes();
+  }
+
   render() {
     return (
       <Grid item xs={12} style={{ marginTop: 90 }}>
@@ -99,12 +105,18 @@ class Requisicoes extends React.Component {
     );
   }
 
+  fetchRequisicoes() {
+    actions.requisicao.listaRequisicao().then(data => {
+      console.log(data);
+    });
+  }
+
   handleClicked = row => {
     this.props.history.push({
-      pathname: "/invoices/" + row.idRequisicao,
+      pathname: "/teste",
       state: { loadedInvoice: row }
     });
   };
 }
 
-export default Requisicoes;
+export default withRouter(Requisicoes);
