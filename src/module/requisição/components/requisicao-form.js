@@ -33,8 +33,19 @@ class RequisicaoForm extends React.Component {
         profissao: "",
         rendaFamiliar: "",
         rendaPessoal: ""
-      }
+      },
+      idRequisicao: ""
     };
+  }
+
+  /**Função para atribuir um id para a requisição,
+   * ela puxa a quantidade de requisiçoes presentes no banco
+   * e soma +1
+   */
+  componentDidMount() {
+    actions.requisicao.listaRequisicao().then(data => {
+      this.setState({ idRequisicao: data.length++ });
+    });
   }
 
   /**Funções para atualizar as variaveis de estado */
@@ -144,6 +155,8 @@ class RequisicaoForm extends React.Component {
     } catch (err) {
       console.log(err);
     }
+
+    this.props.history.push("/perfil");
   };
   render() {
     return (
