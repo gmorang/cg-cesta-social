@@ -3,7 +3,7 @@ import Button from "@material-ui/core/Button";
 import FormControl from "@material-ui/core/FormControl";
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
-import actions from "../actions";
+import actions from "../../../actions/";
 import Typography from "@material-ui/core/Typography";
 import { Link } from "react-router-dom";
 
@@ -39,7 +39,7 @@ class Login extends React.Component {
     event.preventDefault();
     let { email, password } = this.state;
     try {
-      actions.auth(email, password);
+      actions.user.auth(email, password);
     } catch (e) {
       window.alert(e.message);
     }

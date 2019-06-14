@@ -5,7 +5,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import Grid from "@material-ui/core/Grid";
 import cep from "cep-promise";
-import actions from "../actions";
+import actions from "../../../actions/";
 
 class RegistroForm extends React.Component {
   constructor(props) {
@@ -125,7 +125,7 @@ class RegistroForm extends React.Component {
       password
     } = this.state;
     try {
-      actions.register(
+      actions.user.register(
         nome,
         telefone,
         cpf,
