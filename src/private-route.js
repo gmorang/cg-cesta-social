@@ -1,14 +1,20 @@
 import React from "react";
-import { Route } from "react-router-dom";
-import { firebase } from "./config/firebase/";
-import Loading from "./components/loading";
+import { Route, Redirect } from "react-router-dom";
 
-export default function PrivateRoute({ component: Component, ...rest }) {
+export default function PrivateRoute({
+  component: Component,
+  authenticated,
+  ...rest
+}) {
   return (
     <Route
       {...rest}
       render={props =>
-        firebase.auth().currentUser.uid ? <Component {...props} /> : <Loading />
+        authenticated === true ? (
+          <Component {...props} {...rest} />
+        ) : (
+          <Redirect to="/login" />
+        )
       }
     />
   );

@@ -31,29 +31,51 @@ class Routes extends React.Component {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.setState({
-          loading: false
+          loading: false,
+          authenticated: true
         });
         this.props.history.push("/perfil");
       } else {
         this.setState({
-          loading: false
+          loading: false,
+          authenticated: false
         });
         this.props.history.push("/");
       }
     });
   }
   render() {
-    const { loading } = this.state;
+    const { loading, authenticated } = this.state;
     if (loading) {
       return <Loading />;
     }
     return (
       <React.Fragment>
         <NavBar />
-        <PrivateRoute exact path="/perfil" component={Perfil} />
-        <PrivateRoute exact path="/nova-requisicao" component={Requisicao} />
-        <PrivateRoute exact path="/requisicoes" component={Requisicoes} />
-        <PrivateRoute exact path="/teste" component={RequisicaoDetails} />
+        <PrivateRoute
+          authenticated={authenticated}
+          exact
+          path="/perfil"
+          component={Perfil}
+        />
+        <PrivateRoute
+          authenticated={authenticated}
+          exact
+          path="/nova-requisicao"
+          component={Requisicao}
+        />
+        <PrivateRoute
+          authenticated={authenticated}
+          exact
+          path="/requisicoes"
+          component={Requisicoes}
+        />
+        <PrivateRoute
+          authenticated={authenticated}
+          exact
+          path="/teste"
+          component={RequisicaoDetails}
+        />
         <Route exact path="/" component={Login} />
         <Route exact path="/registrar" component={Registro} />
       </React.Fragment>
