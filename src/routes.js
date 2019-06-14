@@ -53,11 +53,7 @@ class Routes extends React.Component {
         <PrivateRoute exact path="/perfil" component={Perfil} />
         <PrivateRoute exact path="/nova-requisicao" component={Requisicao} />
         <PrivateRoute exact path="/requisicoes" component={Requisicoes} />
-        <PrivateRoute
-          exact
-          path="/requisicoes/:idRequisicao"
-          component={RequisicaoDetails}
-        />
+        <PrivateRoute exact path="/teste" component={RequisicaoDetails} />
         <Route exact path="/" component={Login} />
         <Route exact path="/registrar" component={Registro} />
       </React.Fragment>

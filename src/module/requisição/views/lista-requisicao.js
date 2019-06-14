@@ -9,6 +9,7 @@ import {
   Hidden,
   Grid
 } from "@material-ui/core";
+import { withRouter } from "react-router-dom";
 import RequisicaoRow from "../components/rquisicao-row";
 import Titulo from "../../../components/titulo-pagina";
 
@@ -66,6 +67,12 @@ class Requisicoes extends React.Component {
     );
   }
 
+  fetchRequisicoes() {
+    actions.requisicao.listaRequisicao().then(data => {
+      console.log(data);
+    });
+  }
+
   handleClicked = row => {
     this.props.history.push({
       pathname: "/invoices/" + row.requisicao.idRequisicao,
@@ -74,4 +81,4 @@ class Requisicoes extends React.Component {
   };
 }
 
-export default Requisicoes;
+export default withRouter(Requisicoes);
