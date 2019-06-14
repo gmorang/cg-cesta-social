@@ -1,4 +1,4 @@
-import { firebase, firestore } from "../config/firebase/";
+import { firebase, firestore, storage } from "../config/firebase/";
 
 export const infoUser = () => {
   return firebase
@@ -21,30 +21,55 @@ export const register = (
   estado,
   complemento,
   email,
-  password
+  password,
+  file
 ) => {
   firebase
     .auth()
     .createUserWithEmailAndPassword(email, password)
     .then(() => {
-      firestore
-        .collection("users")
-        .doc(firebase.auth().currentUser.uid)
-        .set({
-          nome,
-          telefone,
-          cpf,
-          cep,
-          rua,
-          numero,
-          bairro,
-          cidade,
-          estado,
-          complemento,
-          uid: firebase.auth().currentUser.uid
-        });
+      const uploadTask = storage
+        .ref(
+          `arquivos/${firebase.auth().currentUser.uid}/fotoPerfil/${file.name}`
+        )
+        .put(file);
+
+      uploadTask.on(
+        "state_changed",
+        progress => {
+          console.log(progress);
+        },
+        error => {
+          console.log(error);
+        },
+        () => {
+          storage
+            .ref(`arquivos/${firebase.auth().currentUser.uid}/fotoPerfil`)
+            .child(file.name)
+            .getDownloadURL()
+            .then(url => {
+              firestore
+                .collection("users")
+                .doc(firebase.auth().currentUser.uid)
+                .set({
+                  nome,
+                  telefone,
+                  cpf,
+                  cep,
+                  rua,
+                  numero,
+                  bairro,
+                  cidade,
+                  estado,
+                  complemento,
+                  uid: firebase.auth().currentUser.uid,
+                  foto: url
+                });
+            });
+        }
+      );
+      return register;
     });
-  return register;
 };
 export const auth = (email, password) => {
   firebase

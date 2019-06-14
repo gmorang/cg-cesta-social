@@ -6,6 +6,7 @@ import FormControl from "@material-ui/core/FormControl";
 import Grid from "@material-ui/core/Grid";
 import cep from "cep-promise";
 import actions from "../../../actions/";
+import { Typography } from "@material-ui/core";
 
 class RegistroForm extends React.Component {
   constructor(props) {
@@ -24,7 +25,8 @@ class RegistroForm extends React.Component {
       complemento: "",
       cidade: "",
       estado: "",
-      isLoading: false
+      isLoading: false,
+      foto: null
     };
   }
 
@@ -108,6 +110,14 @@ class RegistroForm extends React.Component {
     });
   };
 
+  _handleFile = e => {
+    if (e.target.files[0]) {
+      const file = e.target.files[0];
+      this.setState({ foto: file });
+      console.log(this.state.file);
+    }
+  };
+
   _handleCadastraUsuario = async event => {
     event.preventDefault();
     let {
@@ -122,7 +132,8 @@ class RegistroForm extends React.Component {
       estado,
       complemento,
       email,
-      password
+      password,
+      foto
     } = this.state;
     try {
       actions.user.register(
@@ -137,9 +148,9 @@ class RegistroForm extends React.Component {
         estado,
         complemento,
         email,
-        password
+        password,
+        foto
       );
-      this.props.history.push("/");
     } catch (e) {
       window.alert(e.message);
     }
@@ -282,6 +293,18 @@ class RegistroForm extends React.Component {
             onChange={this._handlePassword}
           />
         </FormControl>
+        <Grid item xs={12} style={{ marginTop: 20 }}>
+          <Typography>Selecione sua foto do perfil:</Typography>
+          <FormControl margin="normal">
+            <Input
+              name="file"
+              type="file"
+              id="file"
+              onChange={this._handleFile}
+            />
+          </FormControl>
+        </Grid>
+
         <Grid item xs={12}>
           <Button
             type="submit"

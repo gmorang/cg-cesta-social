@@ -42,7 +42,11 @@ class Perfil extends React.Component {
           alignItems="center"
           style={{ padding: 24 }}
         >
-          <Avatar alt="foto-usuario" src={Foto} className={classes.bigAvatar} />
+          <Avatar
+            alt="foto-usuario"
+            src={user.foto}
+            className={classes.bigAvatar}
+          />
         </Grid>
         <Grid container justify="center" alignItems="center">
           <Typography variant="h6">{user.nome}</Typography>

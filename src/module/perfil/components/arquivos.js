@@ -3,7 +3,7 @@ import { Grid, Typography, Divider, Button, Input } from "@material-ui/core";
 import FileCopyOutlined from "@material-ui/icons/FileCopyOutlined";
 import InsertDriveFile from "@material-ui/icons/InsertDriveFileOutlined";
 
-import actions from "../actions/";
+import actions from "../../../actions/";
 
 import "./index.css";
 
@@ -25,7 +25,7 @@ class Arquivos extends React.Component {
   };
   handleUpload = () => {
     const { file } = this.state;
-    actions.uploadFile(file);
+    actions.user.uploadFile(file);
   };
 
   render() {
