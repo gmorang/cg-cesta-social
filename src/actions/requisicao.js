@@ -7,7 +7,8 @@ export const criaRequisicao = requisicao => {
     .set({
       requisicao,
       date: Date.now(),
-      user: firebase.auth().currentUser.uid
+      user: firebase.auth().currentUser.uid,
+      status: "pendente"
     })
     .then(response => {
       console.log(response);

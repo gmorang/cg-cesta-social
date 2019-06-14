@@ -23,14 +23,15 @@ class RequisicaoRow extends React.Component {
     return (
       <TableRow className={classes.row}>
         <TableCell
+          align="center"
           onClick={this.props.onClick}
           scope="row"
           style={{ textTransform: "uppercase", fontWeight: "bolder" }}
         >
-          {row.user}
+          {row.requisicao.idRequisicao}
         </TableCell>
         <TableCell onClick={this.props.onClick} align="right">
-          {this._formatTime(row.data)}
+          {this._formatTime(row.date)}
         </TableCell>
         <TableCell onClick={this.props.onClick} align="right">
           {row.requisicao.infoPessoais.nome}
