@@ -27,10 +27,20 @@ const Item = ({ icon, text, ...rest }) => {
 };
 
 class DrawerMenu extends React.Component {
-  render() {
-    // const isLoggedIn = !!firebase.auth().currentUser.uid;
-    //const isLoggedOut = !firebase.auth().currentUser.uid;
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: null
+    };
+  }
 
+  componentDidMount() {
+    firebase.auth().onAuthStateChanged(user => {
+      this.setState({ user: user });
+    });
+  }
+  render() {
+    const user = this.state.user;
     const { isOpen, toggleDrawer } = this.props;
 
     return (
@@ -55,45 +65,47 @@ class DrawerMenu extends React.Component {
             </IconButton>
           </Toolbar>
           <List>
-            <React.Fragment>
-              <Item
-                icon={<ProfileIcon />}
-                text="Peril do Usuário"
-                component={Link}
-                to="/perfil"
-                onClick={toggleDrawer}
-              />
-
-              <Item
-                icon={<LibraryAdd />}
-                text="Criar Requisição"
-                component={Link}
-                to="/nova-requisicao"
-                onClick={toggleDrawer}
-              />
-              <Item
-                icon={<LibraryBooks />}
-                text="Requisicoes"
-                component={Link}
-                to="/requisicoes"
-                onClick={toggleDrawer}
-                divider
-              />
-            </React.Fragment>
-            <React.Fragment>
-              <Item
-                icon={<ProfileIcon />}
-                text="Login"
-                component={Link}
-                to="/"
-                onClick={toggleDrawer}
-              />
-            </React.Fragment>
-            <Item
-              icon={<LogoutIcon />}
-              onClick={this._handleLogOut}
-              text="Sair"
-            />
+            {user != null ? (
+              <React.Fragment>
+                <Item
+                  icon={<ProfileIcon />}
+                  text="Peril do Usuário"
+                  component={Link}
+                  to="/perfil"
+                  onClick={toggleDrawer}
+                />
+                <Item
+                  icon={<LibraryAdd />}
+                  text="Criar Requisição"
+                  component={Link}
+                  to="/nova-requisicao"
+                  onClick={toggleDrawer}
+                />
+                <Item
+                  icon={<LibraryBooks />}
+                  text="Requisicoes"
+                  component={Link}
+                  to="/requisicoes"
+                  onClick={toggleDrawer}
+                  divider
+                />{" "}
+                <Item
+                  icon={<LogoutIcon />}
+                  onClick={this._handleLogOut}
+                  text="Sair"
+                />
+              </React.Fragment>
+            ) : (
+              <React.Fragment>
+                <Item
+                  icon={<ProfileIcon />}
+                  text="Login"
+                  component={Link}
+                  to="/"
+                  onClick={toggleDrawer}
+                />
+              </React.Fragment>
+            )}
           </List>
         </div>
         <div className="overlay" />
