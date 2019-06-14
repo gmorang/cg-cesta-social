@@ -12,7 +12,7 @@ import CloseIcon from "@material-ui/icons/Clear";
 import LogoutIcon from "@material-ui/icons/ExitToApp";
 import IconButton from "@material-ui/core/IconButton";
 import LibraryBooks from "@material-ui/icons/LibraryBooks";
-
+import PersonAdd from "@material-ui/icons/PersonAdd";
 import { firebase } from "../../../config/firebase/";
 
 import "./index.css";
@@ -88,7 +88,7 @@ class DrawerMenu extends React.Component {
                   to="/requisicoes"
                   onClick={toggleDrawer}
                   divider
-                />{" "}
+                />
                 <Item
                   icon={<LogoutIcon />}
                   onClick={this._handleLogOut}
@@ -102,6 +102,13 @@ class DrawerMenu extends React.Component {
                   text="Login"
                   component={Link}
                   to="/"
+                  onClick={toggleDrawer}
+                />
+                <Item
+                  icon={<PersonAdd />}
+                  text="Cadastre-se"
+                  component={Link}
+                  to="/registrar"
                   onClick={toggleDrawer}
                 />
               </React.Fragment>
