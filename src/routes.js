@@ -14,6 +14,9 @@ import PrivateRoute from "./private-route";
 import Requisicao from "./module/requisição/views";
 import Requisicoes from "./module/requisição/views/lista-requisicao";
 import RequisicaoDetails from "./module/requisição/views/requisicao-details";
+import IncluirAdm from "./module/incluir/views/index-adm";
+import IncluirOng from "./module/incluir/views/index-ong";
+import IncluirUser from "./module/incluir/views/index-user";
 
 class Routes extends React.Component {
   constructor(props) {
@@ -78,6 +81,9 @@ class Routes extends React.Component {
         />
         <Route exact path="/" component={Login} />
         <Route exact path="/registrar" component={Registro} />
+        <Route exact path="/incluiradmin" component={IncluirAdm} />
+        <Route exact path="/incluirong" component={IncluirOng} />
+        <Route exact path="/adduser" component={IncluirUser} />
       </React.Fragment>
     );
   }

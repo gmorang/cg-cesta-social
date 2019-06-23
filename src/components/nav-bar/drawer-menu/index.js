@@ -111,6 +111,27 @@ class DrawerMenu extends React.Component {
                   to="/registrar"
                   onClick={toggleDrawer}
                 />
+                <Item
+                  icon={<PersonAdd />}
+                  text="incluir Adm"
+                  component={Link}
+                  to="/incluiradmin"
+                  onClick={toggleDrawer}
+                />
+                <Item
+                  icon={<PersonAdd />}
+                  text="Incluir Ong"
+                  component={Link}
+                  to="/incluirong"
+                  onClick={toggleDrawer}
+                />
+                <Item
+                  icon={<PersonAdd />}
+                  text="Incluir Usuário"
+                  component={Link}
+                  to="/adduser"
+                  onClick={toggleDrawer}
+                />
               </React.Fragment>
             )}
           </List>
