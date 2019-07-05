@@ -1,22 +1,22 @@
-import * as React from "react";
-import { BrowserRouter, Route, withRouter } from "react-router-dom";
+import * as React from 'react';
+import { BrowserRouter, Route, withRouter } from 'react-router-dom';
 
-import { firebase } from "./config/firebase";
+import { firebase } from './config/firebase';
 
-import Loading from "./components/loading/";
+import Loading from './components/loading/';
 
 //import das classes(telas)
-import NavBar from "./components/nav-bar";
-import Login from "./module/login/views/index";
-import Registro from "./module/login/views/registrar";
-import Perfil from "./module/perfil/views";
-import PrivateRoute from "./private-route";
-import Requisicao from "./module/requisição/views";
-import Requisicoes from "./module/requisição/views/lista-requisicao";
-import RequisicaoDetails from "./module/requisição/views/requisicao-details";
-import IncluirAdm from "./module/incluir/views/index-adm";
-import IncluirOng from "./module/incluir/views/index-ong";
-import IncluirUser from "./module/incluir/views/index-user";
+import NavBar from './components/nav-bar';
+import Login from './module/login/views/index';
+import Registro from './module/login/views/registrar';
+import Perfil from './module/perfil/views';
+import PrivateRoute from './private-route';
+import Requisicao from './module/requisição/views';
+import Requisicoes from './module/requisição/views/lista-requisicao';
+import RequisicaoDetails from './module/requisição/views/requisicao-details';
+import IncluirAdm from './module/incluir/views/index-adm';
+import IncluirOng from './module/incluir/views/index-ong';
+import IncluirUser from './module/incluir/views/index-user';
 
 class Routes extends React.Component {
   constructor(props) {
@@ -37,13 +37,13 @@ class Routes extends React.Component {
           loading: false,
           authenticated: true
         });
-        this.props.history.push("/perfil");
+        this.props.history.push('/perfil');
       } else {
         this.setState({
           loading: false,
           authenticated: false
         });
-        this.props.history.push("/");
+        this.props.history.push('/');
       }
     });
   }
@@ -79,11 +79,26 @@ class Routes extends React.Component {
           path="/teste"
           component={RequisicaoDetails}
         />
+        <PrivateRoute
+          exact
+          path="/novo-admin"
+          authenticated={authenticated}
+          component={IncluirAdm}
+        />
+        <PrivateRoute
+          exact
+          authenticated={authenticated}
+          path="/nova-ong"
+          component={IncluirOng}
+        />
+        <PrivateRoute
+          authenticated={authenticated}
+          exact
+          path="/novo-user"
+          component={IncluirUser}
+        />
         <Route exact path="/" component={Login} />
         <Route exact path="/registrar" component={Registro} />
-        <Route exact path="/incluiradmin" component={IncluirAdm} />
-        <Route exact path="/incluirong" component={IncluirOng} />
-        <Route exact path="/adduser" component={IncluirUser} />
       </React.Fragment>
     );
   }
