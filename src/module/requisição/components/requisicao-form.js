@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   FormControl,
   Input,
@@ -9,10 +9,10 @@ import {
   Typography,
   InputAdornment,
   Button
-} from "@material-ui/core";
-import { withRouter } from "react-router-dom";
-import actions from "../../../actions";
-import Loading from "../../../components/loading";
+} from '@material-ui/core';
+import { withRouter } from 'react-router-dom';
+import actions from '../../../actions';
+import Loading from '../../../components/loading';
 
 class RequisicaoForm extends React.Component {
   constructor(props) {
@@ -20,21 +20,22 @@ class RequisicaoForm extends React.Component {
 
     this.state = {
       infoPessoais: {
-        nome: "",
-        telefone: "",
-        cpf: "",
+        nome: '',
+        telefone: '',
+        cpf: '',
         dependentes: 0
       },
       ong: {
-        nome: ""
+        nome: ''
       },
       renda: {
-        situacao: "",
-        profissao: "",
-        rendaFamiliar: "",
-        rendaPessoal: ""
+        situacao: '',
+        profissao: '',
+        rendaFamiliar: '',
+        rendaPessoal: ''
       },
-      idRequisicao: ""
+      idRequisicao: '',
+      ongs: null
     };
   }
 
@@ -45,12 +46,13 @@ class RequisicaoForm extends React.Component {
   componentDidMount() {
     actions.requisicao.listaRequisicao().then(data => {
       this.setState({ idRequisicao: data.length++ });
+      this.fetchOngs();
     });
   }
 
   /**Funções para atualizar as variaveis de estado */
   _handleNome = text => {
-    console.log("text: ", text);
+    console.log('text: ', text);
 
     this.setState({
       infoPessoais: {
@@ -61,7 +63,7 @@ class RequisicaoForm extends React.Component {
   };
 
   _handleTelefone = text => {
-    console.log("text: ", text);
+    console.log('text: ', text);
 
     this.setState({
       infoPessoais: {
@@ -152,15 +154,18 @@ class RequisicaoForm extends React.Component {
 
     try {
       actions.requisicao.criaRequisicao(state);
-      this.props.history.push("/perfil");
+      this.props.history.push('/perfil');
     } catch (err) {
       console.log(err);
     }
 
-    this.props.history.push("/perfil");
+    this.props.history.push('/perfil');
   };
   render() {
-    return (
+    const ongs = this.state.ongs;
+    return ongs === null ? (
+      <Loading />
+    ) : (
       <div>
         <Typography variant="h6">Informações Pessoais</Typography>
         <form>
@@ -218,13 +223,18 @@ class RequisicaoForm extends React.Component {
                 name="ong"
                 value={this.state.ong.nome}
                 onChange={this._handleNomeOng}
+                inputProps={{
+                  name: 'ong',
+                  id: 'ong-select'
+                }}
               >
-                <MenuItem value={this.state.ong.nome}>
-                  <em>None</em>
-                </MenuItem>
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
+                {this.state.ongs.map(ong => {
+                  return (
+                    <MenuItem key={ong.uid} value={this.state.ong.nome}>
+                      {ong.nome}
+                    </MenuItem>
+                  );
+                })}
               </Select>
             </FormControl>
           </Grid>
@@ -238,11 +248,18 @@ class RequisicaoForm extends React.Component {
                 value={this.state.renda.situacao}
                 onChange={this._handleSituacao}
               >
-                <MenuItem value="">
-                  <em>None</em>
+                <MenuItem
+                  onClick={this._handleSituacao}
+                  value={this.state.renda.situacao}
+                >
+                  Empregado(a)
                 </MenuItem>
-                <MenuItem value={10}>Empregado(a)</MenuItem>
-                <MenuItem value={20}>Desempregado(a)</MenuItem>
+                <MenuItem
+                  onClick={this._handleSituacao}
+                  value={this.state.renda.situacao}
+                >
+                  Desempregado(a)
+                </MenuItem>
               </Select>
             </FormControl>
             <FormControl margin="normal" fullWidth>
@@ -295,11 +312,18 @@ class RequisicaoForm extends React.Component {
       </div>
     );
   }
+
+  fetchOngs() {
+    actions.ong.listaOng().then(data => {
+      console.log('ongs', data);
+      this.setState({ ongs: data });
+    });
+  }
 }
 const styles = {
   submit: {
-    backgroundColor: "#131112",
-    float: "right"
+    backgroundColor: '#131112',
+    float: 'right'
   }
 };
 
