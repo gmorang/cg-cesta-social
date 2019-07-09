@@ -81,3 +81,20 @@ export const auth = (email, password) => {
       console.log('user', firebase.auth().currentUser.uid);
     });
 };
+
+export const listaUsuario = () => {
+  return firestore
+    .collection('users')
+    .limit(10)
+    .get()
+    .then(res =>
+      res.docs.map(doc => {
+        const data = doc.data();
+        console.log('data', data);
+        return data;
+      })
+    )
+    .catch(err => {
+      console.log(err);
+    });
+};
