@@ -1,21 +1,21 @@
-import React from "react";
+import React from 'react';
 
-import { Link } from "react-router-dom";
-import Toolbar from "@material-ui/core/Toolbar";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import ProfileIcon from "@material-ui/icons/Person";
-import LibraryAdd from "@material-ui/icons/LibraryAdd";
-import CloseIcon from "@material-ui/icons/Clear";
-import LogoutIcon from "@material-ui/icons/ExitToApp";
-import IconButton from "@material-ui/core/IconButton";
-import LibraryBooks from "@material-ui/icons/LibraryBooks";
-import PersonAdd from "@material-ui/icons/PersonAdd";
-import { firebase } from "../../../config/firebase/";
+import { Link } from 'react-router-dom';
+import Toolbar from '@material-ui/core/Toolbar';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import ProfileIcon from '@material-ui/icons/Person';
+import LibraryAdd from '@material-ui/icons/LibraryAdd';
+import CloseIcon from '@material-ui/icons/Clear';
+import LogoutIcon from '@material-ui/icons/ExitToApp';
+import IconButton from '@material-ui/core/IconButton';
+import LibraryBooks from '@material-ui/icons/LibraryBooks';
+import PersonAdd from '@material-ui/icons/PersonAdd';
+import { firebase } from '../../../config/firebase/';
 
-import "./index.css";
+import './index.css';
 
 const Item = ({ icon, text, ...rest }) => {
   return (
@@ -45,20 +45,20 @@ class DrawerMenu extends React.Component {
 
     return (
       <div>
-        <div className={isOpen ? "drawer open" : "drawer"}>
+        <div className={isOpen ? 'drawer open' : 'drawer'}>
           <Toolbar
             style={{
-              backgroundColor: "#000",
-              height: "64px",
-              cursor: "pointer",
-              justifyContent: "flex-end"
+              backgroundColor: '#000',
+              height: '64px',
+              cursor: 'pointer',
+              justifyContent: 'flex-end'
             }}
             onClick={toggleDrawer}
           >
             <IconButton
               style={{
-                color: "#fff",
-                backgroundColor: "rgba(0, 0, 0, .05)"
+                color: '#fff',
+                backgroundColor: 'rgba(0, 0, 0, .05)'
               }}
             >
               <CloseIcon />
@@ -111,27 +111,6 @@ class DrawerMenu extends React.Component {
                   to="/registrar"
                   onClick={toggleDrawer}
                 />
-                <Item
-                  icon={<PersonAdd />}
-                  text="incluir Adm"
-                  component={Link}
-                  to="/incluiradmin"
-                  onClick={toggleDrawer}
-                />
-                <Item
-                  icon={<PersonAdd />}
-                  text="Incluir Ong"
-                  component={Link}
-                  to="/incluirong"
-                  onClick={toggleDrawer}
-                />
-                <Item
-                  icon={<PersonAdd />}
-                  text="Incluir Usuário"
-                  component={Link}
-                  to="/adduser"
-                  onClick={toggleDrawer}
-                />
               </React.Fragment>
             )}
           </List>
@@ -147,7 +126,7 @@ class DrawerMenu extends React.Component {
       .signOut()
       .then(() => {
         // Sign-out successful.
-        alert("Você saiu!");
+        alert('Você saiu!');
       })
       .catch(error => {
         // An error happened

@@ -1,9 +1,9 @@
-import { firebase, firestore, storage } from "../config/firebase/";
+import { firebase, firestore, storage } from '../config/firebase/';
 
 export const infoUser = () => {
   return firebase
     .firestore()
-    .collection("users")
+    .collection('users')
     .doc(firebase.auth().currentUser.uid)
     .get()
     .then(res => res.data());
@@ -22,7 +22,8 @@ export const register = (
   complemento,
   email,
   password,
-  file
+  file,
+  tipo
 ) => {
   firebase
     .auth()
@@ -35,7 +36,7 @@ export const register = (
         .put(file);
 
       uploadTask.on(
-        "state_changed",
+        'state_changed',
         progress => {
           console.log(progress);
         },
@@ -49,7 +50,7 @@ export const register = (
             .getDownloadURL()
             .then(url => {
               firestore
-                .collection("users")
+                .collection('users')
                 .doc(firebase.auth().currentUser.uid)
                 .set({
                   nome,
@@ -62,6 +63,7 @@ export const register = (
                   cidade,
                   estado,
                   complemento,
+                  tipo,
                   uid: firebase.auth().currentUser.uid,
                   foto: url
                 });
@@ -76,6 +78,6 @@ export const auth = (email, password) => {
     .auth()
     .signInWithEmailAndPassword(email, password)
     .then(() => {
-      console.log("user", firebase.auth().currentUser.uid);
+      console.log('user', firebase.auth().currentUser.uid);
     });
 };

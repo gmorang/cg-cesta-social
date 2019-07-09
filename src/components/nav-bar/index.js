@@ -1,19 +1,27 @@
 import React from 'react';
+
 import AppBar from './app-bar';
 import DrawerMenu from './drawer-menu/index';
 import AdminMenu from './drawer-menu/admin-menu';
 import OngMenu from './drawer-menu/ong-menu';
 import actions from '../../actions';
 import Loading from '../loading';
+import { firebase } from '../../config/firebase/';
 
 class NavBar extends React.Component {
   state = {
     isOpen: false,
-    user: null
+    user: null,
+    loadedUser: null
   };
 
   componentDidMount() {
-    this.fetchUserType();
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.fetchUserType();
+      }
+      return null;
+    });
   }
   render() {
     const { isOpen, user } = this.state;
@@ -22,10 +30,6 @@ class NavBar extends React.Component {
       zIndex: 99997,
       position: 'relative'
     };
-
-    if (user === null) {
-      return <Loading />;
-    }
 
     return (
       <div style={wrapperStyles}>
@@ -36,9 +40,18 @@ class NavBar extends React.Component {
   }
 
   renderDrawer() {
-    let { user, isOpen } = this.state;
+    let { loadedUser, isOpen } = this.state;
 
-    switch (user.tipo) {
+    if (loadedUser === null) {
+      return (
+        <DrawerMenu
+          isOpen={isOpen}
+          toggleDrawer={this.toggleDrawer}
+          {...this.props}
+        />
+      );
+    }
+    switch (loadedUser.tipo) {
       case 'usuario':
         return (
           <DrawerMenu
@@ -69,7 +82,8 @@ class NavBar extends React.Component {
 
   fetchUserType() {
     actions.user.infoUser().then(user => {
-      this.setState({ user: user });
+      console.log(user);
+      this.setState({ loadedUser: user });
     });
   }
 
