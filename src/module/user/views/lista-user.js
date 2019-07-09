@@ -42,8 +42,8 @@ class Usuarios extends React.Component {
                   <TableRow>
                     <TableCell align="center">Nome</TableCell>
                     <TableCell align="right">CPF</TableCell>
-                    <TableCell align="right">Nome</TableCell>
-                    <TableCell align="right">Status</TableCell>
+                    <TableCell align="right">Telefone</TableCell>
+                    <TableCell align="right">Bairro</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>

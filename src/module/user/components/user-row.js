@@ -34,10 +34,10 @@ class UserRow extends React.Component {
           {row.cpf}
         </TableCell>
         <TableCell onClick={this.props.onClick} align="right">
-          {row.nome}
+          {row.telefone}
         </TableCell>
         <TableCell onClick={this.props.onClick} align="right">
-          {row.nome}
+          {row.bairro}
         </TableCell>
       </TableRow>
     );
