@@ -1,32 +1,33 @@
-import React from "react";
-import Button from "@material-ui/core/Button";
-import Input from "@material-ui/core/Input";
-import InputLabel from "@material-ui/core/InputLabel";
-import FormControl from "@material-ui/core/FormControl";
-import Grid from "@material-ui/core/Grid";
-import cep from "cep-promise";
-import actions from "../../../actions/";
-import { Typography } from "@material-ui/core";
+import React from 'react';
+import Button from '@material-ui/core/Button';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import Grid from '@material-ui/core/Grid';
+import cep from 'cep-promise';
+import actions from '../../../actions/';
+import { Typography } from '@material-ui/core';
 
 class RegistroForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      nome: "",
-      cpf: "",
-      cnpj: "",
-      telefone: "",
-      email: "",
-      password: "",
-      cep: "",
-      numero: "",
-      rua: "",
-      bairro: "",
-      complemento: "",
-      cidade: "",
-      estado: "",
+      nome: '',
+      cpf: '',
+      cnpj: '',
+      telefone: '',
+      email: '',
+      password: '',
+      cep: '',
+      numero: '',
+      rua: '',
+      bairro: '',
+      complemento: '',
+      cidade: '',
+      estado: '',
       isLoading: false,
-      foto: null
+      foto: null,
+      tipo: 'usuario'
     };
   }
 
@@ -133,7 +134,8 @@ class RegistroForm extends React.Component {
       complemento,
       email,
       password,
-      foto
+      foto,
+      tipo
     } = this.state;
     try {
       actions.user.register(
@@ -149,7 +151,8 @@ class RegistroForm extends React.Component {
         complemento,
         email,
         password,
-        foto
+        foto,
+        tipo
       );
     } catch (e) {
       window.alert(e.message);
@@ -322,7 +325,7 @@ class RegistroForm extends React.Component {
 }
 const styles = {
   submit: {
-    backgroundColor: "#131112"
+    backgroundColor: '#131112'
   }
 };
 
