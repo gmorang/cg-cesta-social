@@ -28,13 +28,10 @@ class CestaRow extends React.Component {
           scope="row"
           style={{ textTransform: 'uppercase', fontWeight: 'bolder' }}
         >
-          {row.requisicao.idCesta}
+          {row.idCesta}
         </TableCell>
         <TableCell onClick={this.props.onClick} align="right">
-          {this._formatTime(row.date)}
-        </TableCell>
-        <TableCell onClick={this.props.onClick} align="right">
-          {row.requisicao.infoPessoais.nome}
+          {this._formatTime(row.data)}
         </TableCell>
         <TableCell
           onClick={this.props.onClick}

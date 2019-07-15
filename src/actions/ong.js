@@ -17,11 +17,23 @@ export const listaOng = () => {
     });
 };
 
-export const criaCesta = () => {
+export const criaCesta = idCesta => {
   return firestore
     .collection('cesta')
-    .set()
-    .then(res => res.data);
+    .doc()
+    .set({
+      idCesta,
+      data: Date.now(),
+      uid: firebase.auth().currentUser.uid,
+      status: 'estoque'
+    })
+    .then(response => {
+      console.log(response);
+      alert('Cesta criada com sucesso!!');
+    })
+    .catch(err => {
+      console.log(err);
+    });
 };
 export const listaCesta = () => {
   return firestore

@@ -27,7 +27,8 @@ class ListaCesta extends React.Component {
     super(props);
     this.state = {
       cestas: null,
-      isVisible: false
+      isVisible: false,
+      idCesta: null
     };
   }
 
@@ -35,9 +36,19 @@ class ListaCesta extends React.Component {
     this.fetchCestas();
   }
 
+  componentWillUpdate() {
+    this.fetchCestas();
+  }
+
   _handleModal = () => {
     let { isVisible } = this.state;
     this.setState({ isVisible: !isVisible });
+  };
+
+  adicionaCesta = () => {
+    let idCesta = this.state.idCesta;
+    console.log(idCesta);
+    actions.ong.criaCesta(idCesta).then(this._handleModal);
   };
 
   render() {
@@ -55,13 +66,14 @@ class ListaCesta extends React.Component {
                   <TableRow>
                     <TableCell align="center">Código da Cesta</TableCell>
                     <TableCell align="right">Data</TableCell>
+                    <TableCell align="right">Status</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {this.state.cestas.map(row => {
                     return (
                       <CestaRow
-                        key={row.cesta.idCesta}
+                        key={row.idCesta}
                         row={row}
                         onClick={() => this.handleClicked(row)}
                       />
@@ -79,15 +91,15 @@ class ListaCesta extends React.Component {
           onClose={this._handleModal}
           aria-labelledby="max-width-dialog-title"
         >
-          <DialogTitle id="max-width-dialog-title">Optional sizes</DialogTitle>
+          <DialogTitle id="max-width-dialog-title">Adicionar</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              You can set my maximum width and whether to adapt or not.
+              Deseja adicionar uma cesta ao estoque?
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={this._handleModal} color="primary">
-              Close
+            <Button onClick={this.adicionaCesta} color="primary">
+              Adicionar
             </Button>
           </DialogActions>
         </Dialog>
@@ -98,8 +110,9 @@ class ListaCesta extends React.Component {
   fetchCestas() {
     actions.ong.listaCesta().then(data => {
       console.log(data);
-      this.setState({ cestas: data });
+      this.setState({ cestas: data, idCesta: data.length++ });
     });
+    console.log(this.state.idCesta);
   }
   handleClicked = row => {
     this.props.history.push({
