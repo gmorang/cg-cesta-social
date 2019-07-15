@@ -16,3 +16,26 @@ export const listaOng = () => {
       console.log(err);
     });
 };
+
+export const criaCesta = () => {
+  return firestore
+    .collection('cesta')
+    .set()
+    .then(res => res.data);
+};
+export const listaCesta = () => {
+  return firestore
+    .collection('cesta')
+    .where('uid', '==', firebase.auth().currentUser.uid)
+    .get()
+    .then(res =>
+      res.docs.map(doc => {
+        const data = doc.data();
+        console.log('data', data);
+        return data;
+      })
+    )
+    .catch(err => {
+      console.log(err);
+    });
+};

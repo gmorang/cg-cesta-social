@@ -13,6 +13,7 @@ import LogoutIcon from '@material-ui/icons/ExitToApp';
 import IconButton from '@material-ui/core/IconButton';
 import LibraryBooks from '@material-ui/icons/LibraryBooks';
 import PersonAdd from '@material-ui/icons/PersonAdd';
+import FormatListBulleted from '@material-ui/icons/FormatListBulleted';
 import { firebase } from '../../../config/firebase/';
 
 import './index.css';
@@ -86,6 +87,13 @@ class OngMenu extends React.Component {
                   text="Requisicoes"
                   component={Link}
                   to="/requisicoes"
+                  onClick={toggleDrawer}
+                />
+                <Item
+                  icon={<FormatListBulleted />}
+                  text="Estoque de Cestas"
+                  component={Link}
+                  to="/estoque-cesta"
                   onClick={toggleDrawer}
                   divider
                 />

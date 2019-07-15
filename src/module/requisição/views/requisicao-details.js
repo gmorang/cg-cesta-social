@@ -1,13 +1,13 @@
-import React from "react";
-import { Grid, Typography, Divider } from "@material-ui/core";
-import PersonPinCircleOutlined from "@material-ui/icons/PersonPinCircleOutlined";
-import Titulo from "../../../components/titulo-pagina/";
+import React from 'react';
+import { Grid, Typography, Divider } from '@material-ui/core';
+import PersonPinCircleOutlined from '@material-ui/icons/PersonPinCircleOutlined';
+import Titulo from '../../../components/titulo-pagina/';
 
 class RequisicaoDetails extends React.Component {
   render() {
     const gridStyles = {
       borderRadius: 5,
-      boxShadow: `1px 1px 6px ${"#d3d3d3"}`,
+      boxShadow: `1px 1px 6px ${'#d3d3d3'}`,
       padding: 24
     };
 
@@ -18,7 +18,7 @@ class RequisicaoDetails extends React.Component {
 
     const paperStyles = {
       borderRadius: 5,
-      boxShadow: `1px 1px 6px ${"#d3d3d3"}`,
+      boxShadow: `1px 1px 6px ${'#d3d3d3'}`,
       padding: 24
     };
     return (
@@ -26,10 +26,10 @@ class RequisicaoDetails extends React.Component {
         <Titulo>Detalhes</Titulo>
         <Grid style={{ padding: 24 }} style={gridStyles} item xs={12}>
           <Grid container direction="row" style={{ margin: 10 }}>
-            <Typography variant="h6" style={{ textTransform: "uppercase" }}>
+            <Typography variant="h6" style={{ textTransform: 'uppercase' }}>
               Requisicao#
             </Typography>
-            <Typography variant="h6" style={{ color: "#d3d3d3" }}>
+            <Typography variant="h6" style={{ color: '#d3d3d3' }}>
               237438
             </Typography>
           </Grid>

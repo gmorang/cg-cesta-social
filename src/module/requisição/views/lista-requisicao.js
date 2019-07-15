@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Table,
   TableHead,
@@ -8,13 +8,13 @@ import {
   Paper,
   Hidden,
   Grid
-} from "@material-ui/core";
-import { withRouter } from "react-router-dom";
-import RequisicaoRow from "../components/rquisicao-row";
-import Titulo from "../../../components/titulo-pagina";
+} from '@material-ui/core';
+import { withRouter } from 'react-router-dom';
+import RequisicaoRow from '../components/rquisicao-row';
+import Titulo from '../../../components/titulo-pagina';
 
-import actions from "../../../actions/";
-import Loading from "../../../components/loading";
+import actions from '../../../actions/';
+import Loading from '../../../components/loading';
 
 class Requisicoes extends React.Component {
   constructor(props) {
@@ -75,7 +75,7 @@ class Requisicoes extends React.Component {
 
   handleClicked = row => {
     this.props.history.push({
-      pathname: "/invoices/" + row.requisicao.idRequisicao,
+      pathname: '/requisicoes/' + row.requisicao.idRequisicao,
       state: { loadedInvoice: row }
     });
   };
