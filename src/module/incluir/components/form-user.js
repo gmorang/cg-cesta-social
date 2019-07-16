@@ -8,6 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import cep from 'cep-promise';
 import actions from '../../../actions/';
 import { Typography } from '@material-ui/core';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 class FormUser extends React.Component {
   constructor(props) {
@@ -138,6 +139,9 @@ class FormUser extends React.Component {
       foto,
       user
     } = this.state;
+    this.setState({
+      isLoading: true
+    });
     try {
       await actions.user.register(
         nome,
@@ -317,7 +321,11 @@ class FormUser extends React.Component {
             style={styles.submit}
             onClick={this._handleCadastraUsuario}
           >
-            Cadastrar
+            {isLoading ? (
+              <CircularProgress size={20} color="#FFF" />
+            ) : (
+              'Cadastrar'
+            )}
           </Button>
         </Grid>
       </form>

@@ -7,7 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import cep from 'cep-promise';
 import actions from '../../../actions/';
 import { Typography } from '@material-ui/core';
-import Loading from '../../../components/loading';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 class RegistroForm extends React.Component {
   constructor(props) {
@@ -32,16 +32,20 @@ class RegistroForm extends React.Component {
     };
   }
 
-  _pesquisaCep = () => {
-    cep(this.state.cep).then(data => {
-      console.log(data);
-      this.setState({
-        rua: data.street,
-        bairro: data.neighborhood,
-        cidade: data.city,
-        estado: data.state
+  _pesquisaCep = async () => {
+    try {
+      cep(this.state.cep).then(data => {
+        console.log(data);
+        this.setState({
+          rua: data.street,
+          bairro: data.neighborhood,
+          cidade: data.city,
+          estado: data.state
+        });
       });
-    });
+    } catch (e) {
+      alert(e.message);
+    }
   };
 
   _handleEmail = text => {
@@ -138,6 +142,7 @@ class RegistroForm extends React.Component {
       foto,
       tipo
     } = this.state;
+
     this.setState({
       isLoading: true
     });
@@ -211,13 +216,12 @@ class RegistroForm extends React.Component {
         </FormControl>
         <FormControl style={{ marginLeft: 30 }} margin="normal">
           <Button
-            type="submit"
             variant="contained"
             color="primary"
             style={styles.submit}
             onClick={this._pesquisaCep}
           >
-            Buscar
+            {isLoading ? <CircularProgress size={20} color="#FFF" /> : 'Buscar'}
           </Button>
         </FormControl>
         <FormControl margin="normal" required fullWidth>
@@ -321,7 +325,11 @@ class RegistroForm extends React.Component {
             style={styles.submit}
             onClick={this._handleCadastraUsuario}
           >
-            {isLoading ? <Loading /> : 'Cadastrar'}
+            {isLoading ? (
+              <CircularProgress size={20} color="#FFF" />
+            ) : (
+              'Cadastrar'
+            )}
           </Button>
         </Grid>
       </form>
