@@ -1,13 +1,13 @@
-import React from "react";
-import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
-import { Typography, Avatar, Divider } from "@material-ui/core";
-import Foto from "../../../assets/img/perfil.png";
-import actions from "../../../actions/";
-import { withStyles } from "@material-ui/core/styles";
-import Loading from "../../../components/loading/";
-import Endereco from "../components/endereco";
-import Arquivos from "../components/arquivos";
+import React from 'react';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import { Typography, Avatar, Divider } from '@material-ui/core';
+import Foto from '../../../assets/img/perfil.png';
+import actions from '../../../actions/';
+import { withStyles } from '@material-ui/core/styles';
+import Loading from '../../../components/loading/';
+import Endereco from '../components/endereco';
+import Arquivos from '../components/arquivos';
 
 class Perfil extends React.Component {
   constructor(props) {
@@ -21,10 +21,13 @@ class Perfil extends React.Component {
     this.fetchUser();
   }
 
+  componentDidUpdate() {
+    this.fetchUser();
+  }
   render() {
     const gridStyles = {
       borderRadius: 5,
-      boxShadow: `1px 1px 6px ${"#d3d3d3"}`,
+      boxShadow: `1px 1px 6px ${'#d3d3d3'}`,
       padding: 10,
       marginTop: 10
     };
@@ -32,6 +35,9 @@ class Perfil extends React.Component {
     const user = this.state.user;
 
     if (!this.state.user) {
+      return <Loading />;
+    }
+    if (this.state.user.foto === '') {
       return <Loading />;
     }
     return (

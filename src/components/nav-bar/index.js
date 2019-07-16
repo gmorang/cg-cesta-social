@@ -77,6 +77,9 @@ class NavBar extends React.Component {
             {...this.props}
           />
         );
+
+      case null:
+        return <Loading />;
     }
   }
 

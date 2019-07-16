@@ -9,7 +9,7 @@ export const infoUser = () => {
     .then(res => res.data());
 };
 
-export const register = (
+export const register = async (
   nome,
   telefone,
   cpf,
@@ -25,53 +25,54 @@ export const register = (
   file,
   tipo
 ) => {
-  firebase
-    .auth()
-    .createUserWithEmailAndPassword(email, password)
-    .then(() => {
-      const uploadTask = storage
-        .ref(
-          `arquivos/${firebase.auth().currentUser.uid}/fotoPerfil/${file.name}`
-        )
-        .put(file);
-
-      uploadTask.on(
-        'state_changed',
-        progress => {
-          console.log(progress);
-        },
-        error => {
-          console.log(error);
-        },
-        () => {
+  try {
+    let register = await firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, password);
+    console.log(register);
+    if (register) {
+      await firestore
+        .collection('users')
+        .doc(firebase.auth().currentUser.uid)
+        .set({
+          nome,
+          telefone,
+          cpf,
+          cep,
+          rua,
+          numero,
+          bairro,
+          cidade,
+          estado,
+          complemento,
+          email,
+          password,
+          tipo,
+          foto: ''
+        })
+        .then(() => {
           storage
             .ref(`arquivos/${firebase.auth().currentUser.uid}/fotoPerfil`)
-            .child(file.name)
-            .getDownloadURL()
-            .then(url => {
-              firestore
-                .collection('users')
-                .doc(firebase.auth().currentUser.uid)
-                .set({
-                  nome,
-                  telefone,
-                  cpf,
-                  cep,
-                  rua,
-                  numero,
-                  bairro,
-                  cidade,
-                  estado,
-                  complemento,
-                  tipo,
-                  uid: firebase.auth().currentUser.uid,
-                  foto: url
+            .put(file)
+            .then(() => {
+              storage
+                .ref(`arquivos/${firebase.auth().currentUser.uid}/fotoPerfil`)
+                .getDownloadURL()
+                .then(url => {
+                  firestore
+                    .collection('users')
+                    .doc(firebase.auth().currentUser.uid)
+                    .update({
+                      foto: url
+                    });
                 });
             });
-        }
-      );
-      return register;
-    });
+        });
+    }
+    return register;
+  } catch (e) {
+    alert(e);
+  }
 };
 export const auth = (email, password) => {
   firebase

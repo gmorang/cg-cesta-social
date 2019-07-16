@@ -7,6 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import cep from 'cep-promise';
 import actions from '../../../actions/';
 import { Typography } from '@material-ui/core';
+import Loading from '../../../components/loading';
 
 class RegistroForm extends React.Component {
   constructor(props) {
@@ -137,8 +138,11 @@ class RegistroForm extends React.Component {
       foto,
       tipo
     } = this.state;
+    this.setState({
+      isLoading: true
+    });
     try {
-      actions.user.register(
+      await actions.user.register(
         nome,
         telefone,
         cpf,
@@ -159,6 +163,7 @@ class RegistroForm extends React.Component {
     }
   };
   render() {
+    const isLoading = this.state.isLoading;
     return (
       <form>
         <FormControl margin="normal" required fullWidth>
@@ -316,7 +321,7 @@ class RegistroForm extends React.Component {
             style={styles.submit}
             onClick={this._handleCadastraUsuario}
           >
-            Cadastrar
+            {isLoading ? <Loading /> : 'Cadastrar'}
           </Button>
         </Grid>
       </form>
