@@ -164,6 +164,7 @@ class FormOng extends React.Component {
     }
   };
   render() {
+    const isLoading = this.state.isLoading;
     return (
       <form>
         <FormControl margin="normal" required fullWidth>
@@ -189,7 +190,7 @@ class FormOng extends React.Component {
             />
           </FormControl>
           <FormControl margin="normal">
-            <InputLabel htmlFor="cpf">CPF</InputLabel>
+            <InputLabel htmlFor="cpf">CNPJ</InputLabel>
             <Input
               value={this.state.cpf}
               id="cpf"

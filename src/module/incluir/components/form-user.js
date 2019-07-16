@@ -164,6 +164,7 @@ class FormUser extends React.Component {
     }
   };
   render() {
+    const isLoading = this.state.isLoading;
     return (
       <form>
         <FormControl margin="normal" required fullWidth>

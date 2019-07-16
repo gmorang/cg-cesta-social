@@ -48,7 +48,8 @@ export const register = async (
           email,
           password,
           tipo,
-          foto: ''
+          foto: '',
+          data: Date.now()
         })
         .then(() => {
           storage
@@ -71,7 +72,8 @@ export const register = async (
     }
     return register;
   } catch (e) {
-    alert(e);
+    console.log(e);
+    alert(e.message);
   }
 };
 export const auth = (email, password) => {

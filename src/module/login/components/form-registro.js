@@ -147,24 +147,28 @@ class RegistroForm extends React.Component {
       isLoading: true
     });
     try {
-      await actions.user.register(
-        nome,
-        telefone,
-        cpf,
-        cep,
-        rua,
-        numero,
-        bairro,
-        cidade,
-        estado,
-        complemento,
-        email,
-        password,
-        foto,
-        tipo
-      );
+      await actions.user
+        .register(
+          nome,
+          telefone,
+          cpf,
+          cep,
+          rua,
+          numero,
+          bairro,
+          cidade,
+          estado,
+          complemento,
+          email,
+          password,
+          foto,
+          tipo
+        )
+        .then(() => {
+          this.setState({ isLoading: false });
+        });
     } catch (e) {
-      window.alert(e.message);
+      alert(e);
     }
   };
   render() {
@@ -221,7 +225,7 @@ class RegistroForm extends React.Component {
             style={styles.submit}
             onClick={this._pesquisaCep}
           >
-            {isLoading ? <CircularProgress size={20} color="#FFF" /> : 'Buscar'}
+            Buscar
           </Button>
         </FormControl>
         <FormControl margin="normal" required fullWidth>
