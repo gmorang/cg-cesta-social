@@ -139,7 +139,7 @@ class FormUser extends React.Component {
       user
     } = this.state;
     try {
-      actions.user.register(
+      await actions.user.register(
         nome,
         telefone,
         cpf,
