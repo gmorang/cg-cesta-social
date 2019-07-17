@@ -24,7 +24,7 @@ class RequisicaoDetails extends React.Component {
     return (
       <Grid style={{ marginTop: 90 }} item xs={12}>
         <Titulo>Detalhes</Titulo>
-        <Grid style={{ padding: 24 }} style={gridStyles} item xs={12}>
+        <Grid style={gridStyles} item xs={12}>
           <Grid container direction="row" style={{ margin: 10 }}>
             <Typography variant="h6" style={{ textTransform: 'uppercase' }}>
               Requisicao#

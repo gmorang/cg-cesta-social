@@ -1,18 +1,21 @@
-import { firestore, firebase } from "../config/firebase";
+import { firestore, firebase } from '../config/firebase';
 
-export const criaRequisicao = requisicao => {
+export const criaRequisicao = (ong, infoPessoais, renda, idRequisicao) => {
   firestore
-    .collection("requisicao")
+    .collection('requisicao')
     .doc()
     .set({
-      requisicao,
+      ong,
+      infoPessoais,
+      renda,
+      idRequisicao,
       date: Date.now(),
       user: firebase.auth().currentUser.uid,
-      status: "pendente"
+      status: 'pendente'
     })
     .then(response => {
       console.log(response);
-      alert("Requisição criada com sucesso!!");
+      alert('Requisição criada com sucesso!!');
     })
     .catch(err => {
       console.log(err);
@@ -21,13 +24,13 @@ export const criaRequisicao = requisicao => {
 
 export const listaRequisicao = () => {
   return firestore
-    .collection("requisicao")
+    .collection('requisicao')
     .limit(10)
     .get()
     .then(res =>
       res.docs.map(doc => {
         const data = doc.data();
-        console.log("data", data);
+        console.log('data', data);
         return data;
       })
     )

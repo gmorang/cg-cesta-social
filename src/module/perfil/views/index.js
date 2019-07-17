@@ -2,12 +2,10 @@ import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { Typography, Avatar, Divider } from '@material-ui/core';
-import Foto from '../../../assets/img/perfil.png';
 import actions from '../../../actions/';
 import { withStyles } from '@material-ui/core/styles';
 import Loading from '../../../components/loading/';
 import Endereco from '../components/endereco';
-import Arquivos from '../components/arquivos';
 
 class Perfil extends React.Component {
   constructor(props) {
@@ -85,7 +83,9 @@ const styles = {
   bigAvatar: {
     marginTop: -70,
     width: 150,
-    height: 150
+    height: 150,
+    boxShadow:
+      '0 16px 38px -12px rgba(0, 0, 0, 0.56), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2)'
   }
 };
 

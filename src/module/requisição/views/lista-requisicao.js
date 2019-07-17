@@ -26,6 +26,7 @@ class Requisicoes extends React.Component {
 
   componentDidMount() {
     actions.requisicao.listaRequisicao().then(data => {
+      console.log(data);
       this.setState({ requisicoes: data });
     });
   }
@@ -50,9 +51,10 @@ class Requisicoes extends React.Component {
                 </TableHead>
                 <TableBody>
                   {this.state.requisicoes.map(row => {
+                    console.log('row', row);
                     return (
                       <RequisicaoRow
-                        key={row.requisicao.idRequisicao}
+                        key={row.idRequisicao}
                         row={row}
                         onClick={() => this.handleClicked(row)}
                       />
@@ -75,7 +77,7 @@ class Requisicoes extends React.Component {
 
   handleClicked = row => {
     this.props.history.push({
-      pathname: '/requisicoes/' + row.requisicao.idRequisicao,
+      pathname: '/requisicoes/' + row.idRequisicao,
       state: { loadedInvoice: row }
     });
   };

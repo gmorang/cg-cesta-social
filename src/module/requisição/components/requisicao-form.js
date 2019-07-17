@@ -148,12 +148,12 @@ class RequisicaoForm extends React.Component {
    */
   criaRequisicao = async event => {
     event.preventDefault();
-    let state = this.state;
+    let { ong, infoPessoais, renda, idRequisicao } = this.state;
 
     console.log(this.state);
 
     try {
-      actions.requisicao.criaRequisicao(state);
+      actions.requisicao.criaRequisicao(ong, infoPessoais, renda, idRequisicao);
       this.props.history.push('/perfil');
     } catch (err) {
       console.log(err);

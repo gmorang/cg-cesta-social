@@ -52,7 +52,6 @@ class ListaCesta extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
     return this.state.cestas === null ? (
       <div />
     ) : (

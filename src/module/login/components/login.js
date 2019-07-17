@@ -1,19 +1,21 @@
-import React from "react";
-import Button from "@material-ui/core/Button";
-import FormControl from "@material-ui/core/FormControl";
-import Input from "@material-ui/core/Input";
-import InputLabel from "@material-ui/core/InputLabel";
-import actions from "../../../actions/";
-import Typography from "@material-ui/core/Typography";
-import { Link } from "react-router-dom";
+import React from 'react';
+import Button from '@material-ui/core/Button';
+import FormControl from '@material-ui/core/FormControl';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import actions from '../../../actions/';
+import Typography from '@material-ui/core/Typography';
+import { Link } from 'react-router-dom';
 
-import { withRouter } from "react-router-dom";
+import { withRouter } from 'react-router-dom';
+import { CircularProgress } from '@material-ui/core';
 class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: "",
-      password: ""
+      email: '',
+      password: '',
+      isLoading: false
     };
   }
 
@@ -21,7 +23,7 @@ class Login extends React.Component {
    * Handle register
    */
   _handleRegister = () => {
-    this.props.history.push("/registrar");
+    this.props.history.push('/registrar');
   };
 
   _handleEmail = text => {
@@ -36,15 +38,15 @@ class Login extends React.Component {
     });
   };
   _handleLogIn = async event => {
+    this.setState({ isLoading: true });
     event.preventDefault();
     let { email, password } = this.state;
-    try {
-      actions.user.auth(email, password);
-    } catch (e) {
-      window.alert(e.message);
-    }
+    await actions.user.auth(email, password).then(() => {
+      this.setState({ isLoading: false });
+    });
   };
   render() {
+    const isLoading = this.state.isLoading;
     return (
       <form style={styles.form}>
         <FormControl margin="normal" required fullWidth>
@@ -76,13 +78,14 @@ class Login extends React.Component {
           color="primary"
           style={styles.submit}
           onClick={this._handleLogIn}
+          type="submit"
         >
-          Login
+          {isLoading ? <CircularProgress size={20} color="#FFF" /> : 'Login'}
         </Button>
         <Link to="/registrar">
           <Typography
             color="secondary"
-            style={{ textAlign: "center", color: "#333", marginTop: 25 }}
+            style={{ textAlign: 'center', color: '#333', marginTop: 25 }}
           >
             Não possui cadastro? Cadastre-se
           </Typography>
@@ -93,25 +96,25 @@ class Login extends React.Component {
 }
 const styles = {
   paper: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center"
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
   },
   main: {
-    display: "block",
+    display: 'block',
     width: 400,
-    marginLeft: "auto",
-    marginRight: "auto"
+    marginLeft: 'auto',
+    marginRight: 'auto'
   },
   avatar: {
-    backgroundColor: "#FF3F00"
+    backgroundColor: '#FF3F00'
   },
   submit: {
-    backgroundColor: "#131112",
-    margimBottom: "10%"
+    backgroundColor: '#131112',
+    margimBottom: '10%'
   },
   form: {
-    margin: "8%"
+    margin: '8%'
   }
 };
 

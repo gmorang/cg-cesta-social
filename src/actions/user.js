@@ -76,13 +76,15 @@ export const register = async (
     alert(e.message);
   }
 };
-export const auth = (email, password) => {
-  firebase
-    .auth()
-    .signInWithEmailAndPassword(email, password)
-    .then(() => {
-      console.log('user', firebase.auth().currentUser.uid);
-    });
+export const auth = async (email, password) => {
+  try {
+    let auth = await firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password);
+    return auth;
+  } catch (e) {
+    alert(e);
+  }
 };
 
 export const listaUsuario = () => {

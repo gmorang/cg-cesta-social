@@ -24,8 +24,6 @@ class NavBar extends React.Component {
     });
   }
   render() {
-    const { isOpen, user } = this.state;
-
     const wrapperStyles = {
       zIndex: 99997,
       position: 'relative'
@@ -78,7 +76,7 @@ class NavBar extends React.Component {
           />
         );
 
-      case null:
+      default:
         return <Loading />;
     }
   }
