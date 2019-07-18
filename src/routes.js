@@ -78,7 +78,7 @@ class Routes extends React.Component {
         <PrivateRoute
           authenticated={authenticated}
           exact
-          path="/requisicoes/:sid"
+          path="/requisicoes/:idRequisicao"
           component={RequisicaoDetails}
         />
         <PrivateRoute

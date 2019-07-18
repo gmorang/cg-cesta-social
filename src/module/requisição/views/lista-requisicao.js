@@ -51,7 +51,6 @@ class Requisicoes extends React.Component {
                 </TableHead>
                 <TableBody>
                   {this.state.requisicoes.map(row => {
-                    console.log('row', row);
                     return (
                       <RequisicaoRow
                         key={row.idRequisicao}
@@ -78,7 +77,7 @@ class Requisicoes extends React.Component {
   handleClicked = row => {
     this.props.history.push({
       pathname: '/requisicoes/' + row.idRequisicao,
-      state: { loadedInvoice: row }
+      state: { requisicao: row }
     });
   };
 }

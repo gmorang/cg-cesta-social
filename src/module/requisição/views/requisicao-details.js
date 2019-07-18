@@ -1,9 +1,33 @@
 import React from 'react';
-import { Grid, Typography, Divider } from '@material-ui/core';
+import { Grid, Typography, Divider, Paper } from '@material-ui/core';
 import PersonPinCircleOutlined from '@material-ui/icons/PersonPinCircleOutlined';
+import { withRouter } from 'react-router-dom';
 import Titulo from '../../../components/titulo-pagina/';
+import Loading from '../../../components/loading';
 
 class RequisicaoDetails extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      requisicao: null
+    };
+  }
+
+  componentDidMount() {
+    const requisicao = this.props.location.state.requisicao;
+    this.setState({ requisicao: requisicao });
+    console.log(requisicao);
+  }
+
+  _formatTime = time => {
+    const date = new Date(time);
+    let options = {
+      year: 'numeric',
+      month: 'numeric',
+      day: 'numeric'
+    };
+    return date.toLocaleDateString('pt-br', options);
+  };
   render() {
     const gridStyles = {
       borderRadius: 5,
@@ -21,129 +45,69 @@ class RequisicaoDetails extends React.Component {
       boxShadow: `1px 1px 6px ${'#d3d3d3'}`,
       padding: 24
     };
+    const { requisicao } = this.state;
+    if (requisicao === null) return <Loading />;
     return (
       <Grid style={{ marginTop: 90 }} item xs={12}>
         <Titulo>Detalhes</Titulo>
-        <Grid style={gridStyles} item xs={12}>
-          <Grid container direction="row" style={{ margin: 10 }}>
-            <Typography variant="h6" style={{ textTransform: 'uppercase' }}>
-              Requisicao#
-            </Typography>
-            <Typography variant="h6" style={{ color: '#d3d3d3' }}>
-              237438
-            </Typography>
-          </Grid>
-          <Grid container direction="row" style={{ margin: 10 }}>
-            <Typography variant="h6">Gabriel Morandim</Typography>
-          </Grid>
-          <Divider style={{ margin: 10 }} />
-          <Grid item sm={5} xs={12} style={paperStyles}>
-            <Grid container direction="row">
-              <Grid item sm={12} xs={12}>
-                <Grid container style={{ paddingBottom: 10 }}>
-                  <PersonPinCircleOutlined
-                    style={{ marginRight: 10 }}
-                    fontSize="large"
-                  />
-                  <Typography style={{ marginTop: 5 }} variant="h6">
-                    Endereço
+        <Grid container justify="center" alignItems="center">
+          <Grid item sm={8} xs={12}>
+            <Paper style={paperStyles}>
+              <Grid container justify="center">
+                <Grid item xs={9}>
+                  <Typography
+                    style={{
+                      color: '#a9a9a9'
+                    }}
+                    variant="h5"
+                    component="h5"
+                  >
+                    <strong
+                      style={{
+                        fontWeight: 'bold',
+                        color: '#333',
+                        textTransform: 'uppercase'
+                      }}
+                    >
+                      Requisição{' '}
+                    </strong>
+                    #{requisicao.idRequisicao}
                   </Typography>
                 </Grid>
-
-                <Divider style={{ margin: 10 }} />
-                <Grid container>
-                  <Typography
-                    style={typographyStyles}
-                    variant="subtitle1"
-                    color="textSecondary"
-                  >
-                    Rua Benedito Galdino de barros, 916
-                  </Typography>
-                </Grid>
-                <Grid container>
-                  <Typography
-                    style={typographyStyles}
-                    variant="subtitle1"
-                    color="textSecondary"
-                  >
-                    Jarndin Brasilandia
-                  </Typography>
-                </Grid>
-                <Grid container>
-                  <Typography
-                    style={typographyStyles}
-                    variant="subtitle1"
-                    color="textSecondary"
-                  >
-                    -
-                  </Typography>
-                </Grid>
-                <Grid container>
-                  <Typography
-                    style={typographyStyles}
-                    variant="subtitle1"
-                    color="textSecondary"
-                  >
-                    18080-445
+                <Grid item xs={3}>
+                  <Typography align="right" variant="body1">
+                    {this._formatTime(requisicao.date)}
                   </Typography>
                 </Grid>
               </Grid>
-            </Grid>
-          </Grid>
-          <Grid container direction="row">
-            <Grid item sm={5} xs={12} style={paperStyles}>
-              <Grid container direction="row">
-                <Grid item sm={12} xs={12}>
-                  <Grid container style={{ paddingBottom: 10 }}>
-                    <PersonPinCircleOutlined
-                      style={{ marginRight: 10 }}
-                      fontSize="large"
-                    />
-                    <Typography style={{ marginTop: 5 }} variant="h6">
-                      Renda
-                    </Typography>
-                  </Grid>
-
-                  <Divider style={{ margin: 10 }} />
-                  <Grid container>
-                    <Typography
-                      style={typographyStyles}
-                      variant="subtitle1"
-                      color="textSecondary"
-                    >
-                      Profissao
-                    </Typography>
-                  </Grid>
-                  <Grid container>
-                    <Typography
-                      style={typographyStyles}
-                      variant="subtitle1"
-                      color="textSecondary"
-                    >
-                      Renda Familiar
-                    </Typography>
-                  </Grid>
-                  <Grid container>
-                    <Typography
-                      style={typographyStyles}
-                      variant="subtitle1"
-                      color="textSecondary"
-                    >
-                      Renda Pessoal
-                    </Typography>
-                  </Grid>
-                  <Grid container>
-                    <Typography
-                      style={typographyStyles}
-                      variant="subtitle1"
-                      color="textSecondary"
-                    >
-                      Situacao
-                    </Typography>
-                  </Grid>
+              <Divider style={{ borderRadius: 20, color: '#d3d3d3' }} />
+              <Grid container justify="center">
+                <Grid style={{ marginTop: 30 }} item xs={7}>
+                  <Typography variant="body2">
+                    Nome: {requisicao.infoPessoais.nome}
+                  </Typography>
+                </Grid>
+                <Grid style={{ marginTop: 30 }} item xs={5}>
+                  <Typography variant="body2" align="right">
+                    Telefone: {requisicao.infoPessoais.telefone}
+                  </Typography>
                 </Grid>
               </Grid>
-            </Grid>
+              <Grid container>
+                <Grid item>
+                  <Typography variant="body2">
+                    CPF: {requisicao.infoPessoais.cpf}
+                  </Typography>
+                </Grid>
+              </Grid>
+              <Grid container>
+                <Grid item>
+                  <Typography variant="body2">
+                    Dependentes: {requisicao.infoPessoais.dependentes}
+                  </Typography>
+                </Grid>
+              </Grid>
+            </Paper>
           </Grid>
         </Grid>
       </Grid>
@@ -151,4 +115,4 @@ class RequisicaoDetails extends React.Component {
   }
 }
 
-export default RequisicaoDetails;
+export default withRouter(RequisicaoDetails);

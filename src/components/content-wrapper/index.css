@@ -1,4 +1,4 @@
-.sg-content-outer {
+.content-outer {
   align-items: center;
   display: flex;
   justify-content: center;
@@ -8,26 +8,26 @@
   overflow-x: hidden;
   padding-bottom: 64px;
 }
-.sg-content-outer.top {
+.content-outer.top {
   align-items: flex-start;
 }
 
-.sg-content-inner {
+.content-inner {
   width: 95%;
   max-width: 1200px;
 }
 
 @media only screen and (max-width: 768px) {
-  .sg-content-outer {
+  .content-outer {
     align-items: flex-start;
   }
-  .sg-content-inner {
+  .content-inner {
     width: 100%;
   }
 }
 
 @media only screen and (max-height: 500px) {
-  .sg-content-outer {
+  .content-outer {
     align-items: flex-start;
   }
 }
