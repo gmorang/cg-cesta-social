@@ -1,15 +1,24 @@
 import React from 'react';
-import { Grid, Typography, Divider, Paper } from '@material-ui/core';
-import PersonPinCircleOutlined from '@material-ui/icons/PersonPinCircleOutlined';
+import {
+  Grid,
+  Typography,
+  Divider,
+  Paper,
+  Button,
+  Dialog
+} from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
 import Titulo from '../../../components/titulo-pagina/';
 import Loading from '../../../components/loading';
+import DialogForm from '../components/dialog-form';
+import actions from '../../../actions';
 
 class RequisicaoDetails extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      requisicao: null
+      requisicao: null,
+      isVisibleApprove: false
     };
   }
 
@@ -28,6 +37,12 @@ class RequisicaoDetails extends React.Component {
     };
     return date.toLocaleDateString('pt-br', options);
   };
+
+  _handleModal = () => {
+    let { isVisibleApprove } = this.state;
+    this.setState({ isVisibleApprove: !isVisibleApprove });
+  };
+
   render() {
     const gridStyles = {
       borderRadius: 5,
@@ -107,12 +122,98 @@ class RequisicaoDetails extends React.Component {
                   </Typography>
                 </Grid>
               </Grid>
+              <Divider
+                style={{
+                  borderRadius: 20,
+                  color: '#d3d3d3',
+                  marginTop: 15,
+                  marginBottom: 15
+                }}
+              />
+              <Grid container>
+                <Grid item xs={3}>
+                  <Typography variant="body2">
+                    Situação: {requisicao.renda.situacao}
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <Typography variant="body2">
+                    Profissao: {requisicao.renda.profissao}
+                  </Typography>
+                </Grid>
+              </Grid>
+              <Grid container>
+                <Grid item xs={3}>
+                  <Typography variant="body2">
+                    Renda Pessoal: {requisicao.renda.rendaPessoal}
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <Typography variant="body2">
+                    Renda Familiar: {requisicao.renda.rendaFamiliar}
+                  </Typography>
+                </Grid>
+              </Grid>
+              <Grid
+                container
+                style={{ marginTop: 40, textTransform: 'uppercase' }}
+              >
+                <Grid item xs={12}>
+                  <Typography align="right" variant="h6">
+                    {requisicao.status}
+                  </Typography>
+                </Grid>
+              </Grid>
+              <Grid style={{ marginTop: 20 }} container>
+                <Grid item xs={12}>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    style={styles.submit}
+                    onClick={this._handleModal}
+                  >
+                    Aprovacao
+                  </Button>
+                </Grid>
+              </Grid>
             </Paper>
           </Grid>
         </Grid>
+        <Dialog
+          fullWidth={true}
+          open={this.state.isVisibleApprove}
+          onClose={this._handleModal}
+          aria-labelledby="max-width-dialog-title"
+        >
+          <DialogForm
+            aprova={this._handleAprova}
+            reprova={this._handleReprova}
+          />
+        </Dialog>
       </Grid>
     );
   }
+
+  _handleAprova = async () => {
+    let idRequisicao = this.state.requisicao.idRequisicao;
+    try {
+      actions.requisicao.aprovaRequisicao(idRequisicao);
+    } catch (e) {
+      alert(e);
+    }
+  };
 }
 
+const styles = {
+  submit: {
+    backgroundColor: '#131112',
+    float: 'right',
+    marginLeft: 10
+  },
+  danger: {
+    backgroundColor: '#ff0000',
+    float: 'right'
+  }
+};
 export default withRouter(RequisicaoDetails);

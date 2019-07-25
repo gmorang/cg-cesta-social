@@ -38,3 +38,20 @@ export const listaRequisicao = () => {
       console.log(err);
     });
 };
+
+export const aprovaRequisicao = idRequisicao => {
+  return firestore
+    .collection('requisicao')
+    .doc()
+    .where(idRequisicao, '==', 'idRequisicao')
+    .set({
+      status: 'Aprovada'
+    })
+    .then(response => {
+      console.log(response);
+      alert('Requisição criada com sucesso!!');
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
