@@ -9,6 +9,8 @@ firebase.initializeApp({
   messagingSenderId: "830256704817"
 });
 
+//comexão com o firebase//
+
 const firestore = firebase.firestore();
 const storage = firebase.storage();
 
