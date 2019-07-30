@@ -39,19 +39,27 @@ export const listaRequisicao = () => {
     });
 };
 
-export const aprovaRequisicao = idRequisicao => {
-  return firestore
-    .collection('requisicao')
-    .doc()
-    .where(idRequisicao, '==', 'idRequisicao')
-    .set({
-      status: 'Aprovada'
-    })
-    .then(response => {
-      console.log(response);
-      alert('Requisição criada com sucesso!!');
-    })
-    .catch(err => {
-      console.log(err);
-    });
+export const aprovaRequisicao = async (idRequisicao, dataRetirada, message) => {
+  try {
+    let aprovaRequisicao = await firestore
+      .collection('requisicao')
+      .where('idRequisicao', '==', idRequisicao)
+      .get()
+      .then(res => {
+        res.forEach(doc => {
+          firestore
+            .collection('requisicao')
+            .doc(doc.id)
+            .update({
+              status: 'aprovada',
+              dataAprovacao: Date.now(),
+              dataRetirada: dataRetirada,
+              mensagem: message
+            });
+        });
+      });
+    return aprovaRequisicao;
+  } catch (err) {
+    console.log(err);
+  }
 };
