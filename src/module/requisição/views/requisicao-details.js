@@ -195,12 +195,17 @@ class RequisicaoDetails extends React.Component {
     );
   }
 
-  _handleAprova = async () => {
+  _handleAprova = async (dataRetirada, message) => {
     let idRequisicao = this.state.requisicao.idRequisicao;
     try {
-      actions.requisicao.aprovaRequisicao(idRequisicao);
+      actions.requisicao
+        .aprovaRequisicao(idRequisicao, dataRetirada, message)
+        .then(() => {
+          alert('Requisicao Aprovada com Sucesso');
+          this.setState({ isVisibleApprove: false });
+        });
     } catch (e) {
-      alert(e);
+      console.log(e);
     }
   };
 }
