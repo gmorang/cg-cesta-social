@@ -63,3 +63,26 @@ export const aprovaRequisicao = async (idRequisicao, dataRetirada, message) => {
     console.log(err);
   }
 };
+
+export const reprovaRequisicao = async idRequisicao => {
+  try {
+    let reprovaRequisicao = await firestore
+      .collection('requisicao')
+      .where('idRequisicao', '==', idRequisicao)
+      .get()
+      .then(res => {
+        res.forEach(doc => {
+          firestore
+            .collection('requisicao')
+            .doc(doc.id)
+            .update({
+              status: 'reprovada',
+              dataReprovacao: Date.now()
+            });
+        });
+      });
+    return reprovaRequisicao;
+  } catch (err) {
+    console.log(err);
+  }
+};

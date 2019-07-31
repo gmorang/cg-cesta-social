@@ -5,20 +5,29 @@ import {
   Divider,
   Paper,
   Button,
-  Dialog
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  FormControl,
+  TextField
 } from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
 import Titulo from '../../../components/titulo-pagina/';
 import Loading from '../../../components/loading';
-import DialogForm from '../components/dialog-form';
 import actions from '../../../actions';
+
+import format from 'date-fns/format';
+import { DatePicker } from '@material-ui/pickers';
 
 class RequisicaoDetails extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       requisicao: null,
-      isVisibleApprove: false
+      isVisibleApprove: false,
+      message: null,
+      dateText: null,
+      dataRetirada: null
     };
   }
 
@@ -38,23 +47,23 @@ class RequisicaoDetails extends React.Component {
     return date.toLocaleDateString('pt-br', options);
   };
 
+  _handleDataRetirada = date => {
+    this.setState({ dataRetirada: this._formatTime(date) });
+    console.log(this.state.dataRetirada);
+  };
+
+  _handleMessage = text => {
+    this.setState({
+      message: text.currentTarget.value
+    });
+    console.log(this.state.message);
+  };
   _handleModal = () => {
     let { isVisibleApprove } = this.state;
     this.setState({ isVisibleApprove: !isVisibleApprove });
   };
 
   render() {
-    const gridStyles = {
-      borderRadius: 5,
-      boxShadow: `1px 1px 6px ${'#d3d3d3'}`,
-      padding: 24
-    };
-
-    const typographyStyles = {
-      paddingTop: 10,
-      paddingLeft: 10
-    };
-
     const paperStyles = {
       borderRadius: 5,
       boxShadow: `1px 1px 6px ${'#d3d3d3'}`,
@@ -164,19 +173,7 @@ class RequisicaoDetails extends React.Component {
                   </Typography>
                 </Grid>
               </Grid>
-              <Grid style={{ marginTop: 20 }} container>
-                <Grid item xs={12}>
-                  <Button
-                    type="submit"
-                    variant="contained"
-                    color="primary"
-                    style={styles.submit}
-                    onClick={this._handleModal}
-                  >
-                    Aprovacao
-                  </Button>
-                </Grid>
-              </Grid>
+              {this.renderButtons()}
             </Paper>
           </Grid>
         </Grid>
@@ -186,28 +183,168 @@ class RequisicaoDetails extends React.Component {
           onClose={this._handleModal}
           aria-labelledby="max-width-dialog-title"
         >
-          <DialogForm
-            aprova={this._handleAprova}
-            reprova={this._handleReprova}
-          />
+          {this.renderForm()}
         </Dialog>
       </Grid>
     );
   }
 
-  _handleAprova = async (dataRetirada, message) => {
+  _handleAprova = async () => {
     let idRequisicao = this.state.requisicao.idRequisicao;
+    let { dataRetirada, message } = this.state;
     try {
+      console.log(dataRetirada, message);
       actions.requisicao
         .aprovaRequisicao(idRequisicao, dataRetirada, message)
         .then(() => {
-          alert('Requisicao Aprovada com Sucesso');
+          this.setState({ isVisibleApprove: false });
+          this.props.history.push('/requisicoes');
+        });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  _handleReprova = async () => {
+    let idRequisicao = this.state.requisicao.idRequisicao;
+    const { dataRetirada, message } = this.state;
+    try {
+      actions.requisicao
+        .reprovaRequisicao(idRequisicao, message, dataRetirada)
+        .then(() => {
           this.setState({ isVisibleApprove: false });
         });
     } catch (e) {
       console.log(e);
     }
   };
+
+  _handleFinaliza = async () => {
+    console.log('finalizou');
+  };
+
+  renderForm() {
+    let { requisicao } = this.state;
+    switch (requisicao.status) {
+      case 'aprovada':
+        return (
+          <div>
+            <DialogTitle>
+              Tem certeza que deseja finalizar essa requisição?
+            </DialogTitle>
+            <DialogContent>
+              <Grid container>
+                <Grid item xs={12}>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    style={styles.submit}
+                    onClick={this._handleFinaliza}
+                  >
+                    Aprovar
+                  </Button>
+                </Grid>
+              </Grid>
+            </DialogContent>
+          </div>
+        );
+
+      case 'pendente':
+        return (
+          <div>
+            <DialogTitle>Você deseja aprovar essa requisição?</DialogTitle>
+            <DialogContent>
+              <Grid item xs={12}>
+                <FormControl margin="normal" required fullWidth>
+                  <TextField
+                    id="standard-multiline-flexible"
+                    label="Mensagem"
+                    multiline
+                    rowsMax="4"
+                    value={this.state.message}
+                    onChange={this._handleMessage}
+                    margin="normal"
+                  />
+                </FormControl>
+                <DatePicker
+                  disableToolbar
+                  variant="inline"
+                  label="Data de Retirada"
+                  value={this.state.dataRetirada}
+                  onChange={this._handleDataRetirada}
+                  format="dd/MM/yyyy"
+                />
+              </Grid>
+              <Grid container>
+                <Grid item xs={12}>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    style={styles.submit}
+                    onClick={this._handleAprova}
+                  >
+                    Aprovar
+                  </Button>
+                </Grid>
+              </Grid>
+            </DialogContent>
+          </div>
+        );
+    }
+  }
+
+  renderButtons() {
+    switch (this.state.requisicao.status) {
+      case 'aprovada':
+        return (
+          <Grid style={{ marginTop: 20 }} container>
+            <Grid item xs={12}>
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                style={styles.submit}
+                onClick={this._handleModal}
+              >
+                Confirmar Retirada
+              </Button>
+            </Grid>
+          </Grid>
+        );
+
+      case 'pendente':
+        return (
+          <Grid style={{ marginTop: 20 }} container>
+            <Grid item xs={12}>
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                style={styles.submit}
+                onClick={this._handleModal}
+              >
+                Aprovar
+              </Button>
+              <Button
+                type="submit"
+                variant="contained"
+                style={styles.danger}
+                onClick={this._handleReprova}
+              >
+                Reprovar
+              </Button>
+            </Grid>
+          </Grid>
+        );
+      case 'reprovada':
+        return null;
+
+      default:
+        return <Loading />;
+    }
+  }
 }
 
 const styles = {
@@ -218,7 +355,8 @@ const styles = {
   },
   danger: {
     backgroundColor: '#ff0000',
-    float: 'right'
+    float: 'right',
+    color: '#fff'
   }
 };
 export default withRouter(RequisicaoDetails);
