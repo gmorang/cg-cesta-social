@@ -1,37 +1,40 @@
-import React from 'react';
+import React from "react";
 
-import Button from '@material-ui/core/Button';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
-import Grid from '@material-ui/core/Grid';
-import cep from 'cep-promise';
-import actions from '../../../actions/';
-import { Typography } from '@material-ui/core';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import Button from "@material-ui/core/Button";
+import Input from "@material-ui/core/Input";
+import InputLabel from "@material-ui/core/InputLabel";
+import FormControl from "@material-ui/core/FormControl";
+import Grid from "@material-ui/core/Grid";
+import cep from "cep-promise";
+import actions from "../../../actions/";
+import { Typography } from "@material-ui/core";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
+//dados de cadastro para administrador//
 class FormAdm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      nome: '',
-      cpf: '',
-      cnpj: '',
-      telefone: '',
-      email: '',
-      password: '',
-      cep: '',
-      numero: '',
-      rua: '',
-      bairro: '',
-      complemento: '',
-      cidade: '',
-      estado: '',
+      nome: "",
+      cpf: "",
+      cnpj: "",
+      telefone: "",
+      email: "",
+      password: "",
+      cep: "",
+      numero: "",
+      rua: "",
+      bairro: "",
+      complemento: "",
+      cidade: "",
+      estado: "",
       isLoading: false,
       foto: null,
-      tipo: 'admin'
+      tipo: "admin"
     };
   }
+
+  //pesquisa o cep informado e preenche o endereço//
 
   _pesquisaCep = () => {
     cep(this.state.cep).then(data => {
@@ -44,7 +47,7 @@ class FormAdm extends React.Component {
       });
     });
   };
-
+  //campo para registrar um email//
   _handleEmail = text => {
     this.setState({
       email: text.currentTarget.value
@@ -52,13 +55,13 @@ class FormAdm extends React.Component {
 
     console.log(this.state.email);
   };
-
+  //campo para registrar uma senha//
   _handlePassword = text => {
     this.setState({
       password: text.currentTarget.value
     });
   };
-
+  // campo para registrar um cpf//
   _handleCpf = text => {
     this.setState({
       cpf: text.currentTarget.value
@@ -69,50 +72,55 @@ class FormAdm extends React.Component {
       cep: text.currentTarget.value
     });
   };
-
+  //campo para registar nome//
   _handleNome = text => {
     this.setState({
       nome: text.currentTarget.value
     });
   };
+  //campo para registrar um número de telefone//
   _handleTelefone = text => {
     this.setState({
       telefone: text.currentTarget.value
     });
   };
-
+  //campo para registrar a rua//
   _handleRua = text => {
     this.setState({
       rua: text.currentTarget.value
     });
   };
+  //campo para registrar número da casa//
   _handleNumero = text => {
     this.setState({
       numero: text.currentTarget.value
     });
   };
+  //campo para registrar um bairro
   _handleBairro = text => {
     this.setState({
       bairro: text.currentTarget.value
     });
   };
+  //campo para registrar a cidade//
   _handleCidade = text => {
     this.setState({
       cidade: text.currentTarget.value
     });
   };
-
+  //campo para registrar um estado//
   _handleEstado = text => {
     this.setState({
       estado: text.currentTarget.value
     });
   };
+  //campo para registrar completo do endereço//
   _handleComplemento = text => {
     this.setState({
       complemento: text.currentTarget.value
     });
   };
-
+  //faz uploead da foto//
   _handleFile = e => {
     if (e.target.files[0]) {
       const file = e.target.files[0];
@@ -120,7 +128,7 @@ class FormAdm extends React.Component {
       console.log(this.state.file);
     }
   };
-
+  //registro de usuario comum//
   _handleCadastraUsuario = async event => {
     event.preventDefault();
     let {
@@ -325,7 +333,7 @@ class FormAdm extends React.Component {
             {isLoading ? (
               <CircularProgress size={20} color="#FFF" />
             ) : (
-              'Cadastrar'
+              "Cadastrar"
             )}
           </Button>
         </Grid>
@@ -335,7 +343,7 @@ class FormAdm extends React.Component {
 }
 const styles = {
   submit: {
-    backgroundColor: '#131112'
+    backgroundColor: "#131112"
   }
 };
 
