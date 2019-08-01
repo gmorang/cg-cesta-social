@@ -9,14 +9,16 @@ import {
   DialogTitle,
   DialogContent,
   FormControl,
-  TextField
+  TextField,
+  MenuItem,
+  InputLabel,
+  Select
 } from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
 import Titulo from '../../../components/titulo-pagina/';
 import Loading from '../../../components/loading';
 import actions from '../../../actions';
 
-import format from 'date-fns/format';
 import { DatePicker } from '@material-ui/pickers';
 
 class RequisicaoDetails extends React.Component {
@@ -27,14 +29,16 @@ class RequisicaoDetails extends React.Component {
       isVisibleApprove: false,
       message: null,
       dateText: null,
-      dataRetirada: null
+      dataRetirada: null,
+      cestas: null,
+      selectCesta: null
     };
   }
 
   componentDidMount() {
+    this.fetchCestas();
     const requisicao = this.props.location.state.requisicao;
     this.setState({ requisicao: requisicao });
-    console.log(requisicao);
   }
 
   _formatTime = time => {
@@ -58,6 +62,13 @@ class RequisicaoDetails extends React.Component {
     });
     console.log(this.state.message);
   };
+
+  _handleCesta = text => {
+    alert(text.currentTarget.value);
+    this.setState({
+      selectCesta: text.currentTarget.value
+    });
+  };
   _handleModal = () => {
     let { isVisibleApprove } = this.state;
     this.setState({ isVisibleApprove: !isVisibleApprove });
@@ -69,8 +80,9 @@ class RequisicaoDetails extends React.Component {
       boxShadow: `1px 1px 6px ${'#d3d3d3'}`,
       padding: 24
     };
-    const { requisicao } = this.state;
+    const { requisicao, cestas } = this.state;
     if (requisicao === null) return <Loading />;
+    if (cestas === null) return <Loading />;
     return (
       <Grid style={{ marginTop: 90 }} item xs={12}>
         <Titulo>Detalhes</Titulo>
@@ -147,19 +159,19 @@ class RequisicaoDetails extends React.Component {
                 </Grid>
                 <Grid item>
                   <Typography variant="body2">
-                    Profissao: {requisicao.renda.profissao}
+                    Profissão: {requisicao.renda.profissao}
                   </Typography>
                 </Grid>
               </Grid>
               <Grid container>
                 <Grid item xs={3}>
                   <Typography variant="body2">
-                    Renda Pessoal: {requisicao.renda.rendaPessoal}
+                    Renda Pessoal:R${requisicao.renda.rendaPessoal}
                   </Typography>
                 </Grid>
                 <Grid item>
                   <Typography variant="body2">
-                    Renda Familiar: {requisicao.renda.rendaFamiliar}
+                    Renda Familiar:R${requisicao.renda.rendaFamiliar}
                   </Typography>
                 </Grid>
               </Grid>
@@ -187,6 +199,13 @@ class RequisicaoDetails extends React.Component {
         </Dialog>
       </Grid>
     );
+  }
+
+  fetchCestas() {
+    actions.ong.listaCesta().then(data => {
+      this.setState({ cestas: data });
+    });
+    console.log(this.state.cestas);
   }
 
   _handleAprova = async () => {
@@ -224,6 +243,7 @@ class RequisicaoDetails extends React.Component {
   };
 
   renderForm() {
+    const { _handleCesta } = this.props;
     let { requisicao } = this.state;
     switch (requisicao.status) {
       case 'aprovada':
@@ -267,6 +287,34 @@ class RequisicaoDetails extends React.Component {
                     margin="normal"
                   />
                 </FormControl>
+                <Grid item xs={12}>
+                  <FormControl margin="dense" fullWidth>
+                    <InputLabel htmlFor="cestas">Cestas</InputLabel>
+                    <Select
+                      id="ong"
+                      name="ong"
+                      value={this.state.cestas}
+                      onChange={this._handleCesta}
+                      inputProps={{
+                        name: 'cesta',
+                        id: 'cesta-select'
+                      }}
+                    >
+                      {this.state.cestas.map(cesta => {
+                        return (
+                          <MenuItem
+                            key={cesta.idCesta}
+                            onChange={e => {
+                              alert(e.currentTarget.value);
+                            }}
+                          >
+                            {cesta.idCesta}
+                          </MenuItem>
+                        );
+                      })}
+                    </Select>
+                  </FormControl>
+                </Grid>
                 <DatePicker
                   disableToolbar
                   variant="inline"
