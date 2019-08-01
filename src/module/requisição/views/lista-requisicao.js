@@ -16,6 +16,8 @@ import Titulo from '../../../components/titulo-pagina';
 import actions from '../../../actions/';
 import Loading from '../../../components/loading';
 
+import RequisicaoMobile from './lista-requisicao-mobile';
+
 class Requisicoes extends React.Component {
   constructor(props) {
     super(props);
@@ -62,6 +64,13 @@ class Requisicoes extends React.Component {
                 </TableBody>
               </Table>
             </Paper>
+          </Hidden>
+          <Hidden smUp>
+            {this.state.requisicoes.map(row => (
+              <Paper onClick={() => this.handleClicked(row)}>
+                <RequisicaoMobile key={row.idRequisicao} row={row} />
+              </Paper>
+            ))}
           </Hidden>
         </Grid>
       </Grid>

@@ -1,26 +1,27 @@
-import React from "react";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Grid from "@material-ui/core/Grid";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
-import Logo from "../../assets/img/icon-branco.png";
+import React from 'react';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import Logo from '../../assets/img/icon-branco.png';
+import { Typography } from '@material-ui/core';
 
 class AppHeader extends React.Component {
   render() {
     const { toggleDrawer } = this.props;
 
     const iconStyles = {
-      color: "#FFF"
+      color: '#FFF'
     };
 
     return (
       <AppBar position="fixed">
         <Toolbar
           style={{
-            display: "flex",
-            justifyContent: "space-between",
-            backgroundColor: "#000"
+            display: 'flex',
+            justifyContent: 'space-between',
+            backgroundColor: '#000'
           }}
         >
           <Grid container justify="flex-start">
@@ -29,6 +30,8 @@ class AppHeader extends React.Component {
                 <MenuIcon style={iconStyles} />
               </IconButton>
             </Grid>
+
+            <h5 style={{ color: '#fff', marginTop: 8 }}>MENU</h5>
           </Grid>
           <a href="/" target="_blank" rel="noopener noreferrer">
             <img style={{ width: 40 }} src={Logo} alt="logo" />

@@ -39,12 +39,38 @@ class RequisicaoRow extends React.Component {
         <TableCell
           onClick={this.props.onClick}
           align="right"
-          style={{ textTransform: 'uppercase' }}
+          style={this._handleStyle(row.status)}
         >
           {row.status}
         </TableCell>
       </TableRow>
     );
+  }
+  _handleStyle(status) {
+    let aprovada = {
+      color: '#60C060',
+      fontWeight: 'bold',
+      textTransform: 'uppercase'
+    };
+    let reprovada = {
+      color: '#ff0000',
+      fontWeight: 'bold',
+      textTransform: 'uppercase'
+    };
+    let pendente = {
+      color: '#FF700D',
+      fontWeight: 'bold',
+      textTransform: 'uppercase'
+    };
+    if (status === 'aprovada') {
+      return aprovada;
+    }
+    if (status === 'reprovada') {
+      return reprovada;
+    }
+    if (status === 'pendente') {
+      return pendente;
+    }
   }
 }
 
