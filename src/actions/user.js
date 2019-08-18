@@ -53,22 +53,33 @@ export const register = async (
           user: firebase.auth().currentUser.uid
         })
         .then(() => {
-          storage
-            .ref(`arquivos/${firebase.auth().currentUser.uid}/fotoPerfil`)
-            .put(file)
-            .then(() => {
-              storage
-                .ref(`arquivos/${firebase.auth().currentUser.uid}/fotoPerfil`)
-                .getDownloadURL()
-                .then(url => {
-                  firestore
-                    .collection('users')
-                    .doc(firebase.auth().currentUser.uid)
-                    .update({
-                      foto: url
-                    });
-                });
-            });
+          console.log(file);
+          if (!file) {
+            firestore
+              .collection('users')
+              .doc(firebase.auth().currentUser.uid)
+              .update({
+                foto:
+                  'https://banner2.kisspng.com/20180521/ocp/kisspng-computer-icons-user-profile-avatar-french-people-5b0365e4f1ce65.9760504415269493489905.jpg'
+              });
+          } else {
+            storage
+              .ref(`arquivos/${firebase.auth().currentUser.uid}/fotoPerfil`)
+              .put(file)
+              .then(() => {
+                storage
+                  .ref(`arquivos/${firebase.auth().currentUser.uid}/fotoPerfil`)
+                  .getDownloadURL()
+                  .then(url => {
+                    firestore
+                      .collection('users')
+                      .doc(firebase.auth().currentUser.uid)
+                      .update({
+                        foto: url
+                      });
+                  });
+              });
+          }
         });
     }
     return register;
@@ -77,6 +88,7 @@ export const register = async (
     alert(e.message);
   }
 };
+
 export const auth = async (email, password) => {
   try {
     let auth = await firebase
