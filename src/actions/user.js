@@ -49,7 +49,8 @@ export const register = async (
           password,
           tipo,
           foto: '',
-          data: Date.now()
+          data: Date.now(),
+          user: firebase.auth().currentUser.uid
         })
         .then(() => {
           storage

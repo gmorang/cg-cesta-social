@@ -85,7 +85,7 @@ class DrawerMenu extends React.Component {
                   icon={<LibraryBooks />}
                   text="Requisições"
                   component={Link}
-                  to="/requisicoes"
+                  to="/requisicao-user"
                   onClick={toggleDrawer}
                   divider
                 />

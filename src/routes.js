@@ -19,6 +19,7 @@ import IncluirOng from './module/incluir/views/index-ong';
 import IncluirUser from './module/incluir/views/index-user';
 import Usuarios from './module/user/views/lista-user';
 import ListaCesta from './module/estoque-cesta/views/lista-cesta';
+import RequisicaoUser from './module/lista-requisicao-user/views/';
 
 class Routes extends React.Component {
   constructor(props) {
@@ -110,6 +111,12 @@ class Routes extends React.Component {
           exact
           path="/estoque-cesta"
           component={ListaCesta}
+        />
+        <PrivateRoute
+          authenticated={authenticated}
+          exact
+          path="/requisicao-user"
+          component={RequisicaoUser}
         />
         <Route exact path="/" component={Login} />
         <Route exact path="/registrar" component={Registro} />
