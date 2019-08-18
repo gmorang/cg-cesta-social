@@ -243,9 +243,10 @@ class RequisicaoDetails extends React.Component {
   };
 
   renderForm() {
-    const { _handleCesta } = this.props;
     let { requisicao } = this.state;
     switch (requisicao.status) {
+      default:
+        return <Loading />;
       case 'aprovada':
         return (
           <div>

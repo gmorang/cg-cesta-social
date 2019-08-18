@@ -1,12 +1,13 @@
-import * as firebase from "firebase";
+import * as firebase from 'firebase';
 
 firebase.initializeApp({
-  apiKey: "AIzaSyBrV3NFqXg_ml4WVYF5kIsDVj8YeoMXm00",
-  authDomain: "cesta-social.firebaseapp.com",
-  databaseURL: "https://cesta-social.firebaseio.com",
-  projectId: "cesta-social",
-  storageBucket: "cesta-social.appspot.com",
-  messagingSenderId: "830256704817"
+  apiKey: 'AIzaSyCT7tGVwePMYmbw-sqQsqUmaCLND8lvxzI',
+  authDomain: 'cesta-social-cf995.firebaseapp.com',
+  databaseURL: 'https://cesta-social-cf995.firebaseio.com',
+  projectId: 'cesta-social-cf995',
+  storageBucket: 'cesta-social-cf995.appspot.com',
+  messagingSenderId: '574441175291',
+  appId: '1:574441175291:web:8c09c9ec532217e2'
 });
 
 //comexão com o firebase//

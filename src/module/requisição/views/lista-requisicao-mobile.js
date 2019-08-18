@@ -14,13 +14,7 @@ class RequisicaoMobile extends React.Component {
   };
   render() {
     let { row } = this.props;
-    const unpaidStyle = {
-      color: '#ff0000',
-      fontWeight: 'bold',
-      textTransform: 'uppercase',
-      float: 'right',
-      padding: 8
-    };
+
     const gridStyles = {
       marginBottom: 30,
       borderRadius: 10,

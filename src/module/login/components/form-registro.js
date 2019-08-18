@@ -9,8 +9,6 @@ import actions from '../../../actions/';
 import { Typography } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import img from '../../../assets/img/avatar.jpg';
-
 class RegistroForm extends React.Component {
   constructor(props) {
     super(props);

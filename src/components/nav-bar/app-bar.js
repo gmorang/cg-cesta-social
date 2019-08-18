@@ -5,7 +5,6 @@ import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Logo from '../../assets/img/icon-branco.png';
-import { Typography } from '@material-ui/core';
 
 class AppHeader extends React.Component {
   render() {
