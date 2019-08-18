@@ -25,12 +25,11 @@ export const criaRequisicao = (ong, infoPessoais, renda, idRequisicao) => {
 export const listaRequisicao = () => {
   return firestore
     .collection('requisicao')
-    .limit(10)
     .get()
     .then(res =>
       res.docs.map(doc => {
+        console.log(doc);
         const data = doc.data();
-        console.log('data', data);
         return data;
       })
     )

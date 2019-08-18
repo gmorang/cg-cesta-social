@@ -22,23 +22,28 @@ class Requisicoes extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      requisicoes: null
+      requisicoes: null,
+      user: null
     };
   }
 
-  componentDidMount() {
-    actions.requisicao.listaRequisicao().then(data => {
-      console.log(data);
-      this.setState({ requisicoes: data });
-    });
-  }
+  componentDidMount = async () => {
+    await this.fetchUser();
+    await this.fetchRequisicoes();
+  };
 
   render() {
-    return this.state.requisicoes === null ? (
-      <Loading />
-    ) : (
+    const { requisicoes, user } = this.state;
+    if (requisicoes === null) {
+      return <Loading />;
+    }
+    if (user === null) {
+      return <Loading />;
+    }
+    console.log(user);
+    return (
       <Grid item xs={12} style={{ marginTop: 90 }}>
-        <Titulo>Requisicoes</Titulo>
+        <Titulo>Requisições</Titulo>
         <Grid item xs={12} style={{ padding: 10 }}>
           <Hidden xsDown>
             <Paper style={{ padding: 20 }}>
@@ -53,13 +58,15 @@ class Requisicoes extends React.Component {
                 </TableHead>
                 <TableBody>
                   {this.state.requisicoes.map(row => {
-                    return (
+                    console.log(this.state);
+                    let user = this.state.user.nome;
+                    return user === row.ong.nome ? (
                       <RequisicaoRow
                         key={row.idRequisicao}
                         row={row}
                         onClick={() => this.handleClicked(row)}
                       />
-                    );
+                    ) : null;
                   })}
                 </TableBody>
               </Table>
@@ -77,11 +84,17 @@ class Requisicoes extends React.Component {
     );
   }
 
-  fetchRequisicoes() {
-    actions.requisicao.listaRequisicao().then(data => {
-      console.log(data);
+  fetchUser() {
+    actions.user.infoUser().then(data => {
+      this.setState({ user: data });
     });
   }
+  fetchRequisicoes = () => {
+    actions.requisicao.listaRequisicao().then(data => {
+      this.setState({ requisicoes: data });
+      console.log(data);
+    });
+  };
 
   handleClicked = row => {
     this.props.history.push({
