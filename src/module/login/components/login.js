@@ -50,7 +50,7 @@ class Login extends React.Component {
     return (
       <form style={styles.form}>
         <FormControl margin="normal" required fullWidth>
-          <InputLabel htmlFor="email">Email Address</InputLabel>
+          <InputLabel htmlFor="email">Email</InputLabel>
           <Input
             value={this.state.email}
             id="email"
@@ -61,7 +61,7 @@ class Login extends React.Component {
           />
         </FormControl>
         <FormControl margin="normal" required fullWidth>
-          <InputLabel htmlFor="password">Password</InputLabel>
+          <InputLabel htmlFor="password">Senha</InputLabel>
           <Input
             name="password"
             type="password"

@@ -84,7 +84,7 @@ class OngMenu extends React.Component {
                 />
                 <Item
                   icon={<LibraryBooks />}
-                  text="Requisicoes"
+                  text="Requisições"
                   component={Link}
                   to="/requisicoes"
                   onClick={toggleDrawer}
