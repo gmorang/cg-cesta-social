@@ -31,7 +31,8 @@ class RequisicaoDetails extends React.Component {
       dateText: null,
       dataRetirada: null,
       cestas: null,
-      selectCesta: null
+      selectCesta: null,
+      user: null
     };
   }
 
@@ -39,6 +40,7 @@ class RequisicaoDetails extends React.Component {
     this.fetchCestas();
     const requisicao = this.props.location.state.requisicao;
     this.setState({ requisicao: requisicao });
+    this.fetchUser();
   }
 
   _formatTime = time => {
@@ -73,15 +75,21 @@ class RequisicaoDetails extends React.Component {
     this.setState({ isVisibleApprove: !isVisibleApprove });
   };
 
+  fetchUser = () => {
+    actions.user.infoUser().then(res => {
+      this.setState({ user: res });
+    });
+  };
   render() {
     const paperStyles = {
       borderRadius: 5,
       boxShadow: `1px 1px 6px ${'#d3d3d3'}`,
       padding: 24
     };
-    const { requisicao, cestas } = this.state;
+    const { requisicao, cestas, user } = this.state;
     if (requisicao === null) return <Loading />;
     if (cestas === null) return <Loading />;
+    if (user === null) return <Loading />;
     return (
       <Grid style={{ marginTop: 90 }} item xs={12}>
         <Titulo>Detalhes</Titulo>
@@ -340,53 +348,59 @@ class RequisicaoDetails extends React.Component {
   }
 
   renderButtons() {
-    switch (this.state.requisicao.status) {
-      case 'aprovada':
-        return (
-          <Grid style={{ marginTop: 20 }} container>
-            <Grid item xs={12}>
-              <Button
-                type="submit"
-                variant="contained"
-                color="primary"
-                style={styles.submit}
-                onClick={this._handleModal}
-              >
-                Confirmar Retirada
-              </Button>
+    let { user } = this.state;
+    console.log(user);
+    if (user.tipo === 'usuario') {
+      return null;
+    } else {
+      switch (this.state.requisicao.status) {
+        case 'aprovada':
+          return (
+            <Grid style={{ marginTop: 20 }} container>
+              <Grid item xs={12}>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  style={styles.submit}
+                  onClick={this._handleModal}
+                >
+                  Confirmar Retirada
+                </Button>
+              </Grid>
             </Grid>
-          </Grid>
-        );
+          );
 
-      case 'pendente':
-        return (
-          <Grid style={{ marginTop: 20 }} container>
-            <Grid item xs={12}>
-              <Button
-                type="submit"
-                variant="contained"
-                color="primary"
-                style={styles.submit}
-                onClick={this._handleModal}
-              >
-                Aprovar
-              </Button>
-              <Button
-                type="submit"
-                variant="contained"
-                style={styles.danger}
-                onClick={this._handleReprova}
-              >
-                Reprovar
-              </Button>
+        case 'pendente':
+          return (
+            <Grid style={{ marginTop: 20 }} container>
+              <Grid item xs={12}>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  style={styles.submit}
+                  onClick={this._handleModal}
+                >
+                  Aprovar
+                </Button>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  style={styles.danger}
+                  onClick={this._handleReprova}
+                >
+                  Reprovar
+                </Button>
+              </Grid>
             </Grid>
-          </Grid>
-        );
-      case 'reprovada':
-        return null;
+          );
+        case 'reprovada':
+          return null;
 
-      default:
-        return <Loading />;
+        default:
+          return <Loading />;
+      }
     }
   }
 }
