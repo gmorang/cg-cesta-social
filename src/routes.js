@@ -21,6 +21,7 @@ import Usuarios from './module/user/views/lista-user';
 import ListaCesta from './module/estoque-cesta/views/lista-cesta';
 import RequisicaoUser from './module/lista-requisicao-user/views/';
 import RequisicaoAdmin from './module/lista-requisicao-admin/views/';
+import Dashboard from './module/dashboard';
 
 class Routes extends React.Component {
   constructor(props) {
@@ -125,6 +126,12 @@ class Routes extends React.Component {
           exact
           path="/requisicao-admin"
           component={RequisicaoAdmin}
+        />
+        <PrivateRoute
+          authenticated={authenticated}
+          exact
+          path="/dashboard"
+          component={Dashboard}
         />
         <Route exact path="/" component={Login} />
         <Route exact path="/registrar" component={Registro} />
