@@ -94,21 +94,21 @@ class RequisicaoForm extends React.Component {
     console.log(this.state.infoPessoais.dependentes);
   };
 
-  _handleNomeOng = text => {
+  _handleNomeOng = event => {
     this.setState({
       ong: {
         ...this.state.ong,
-        nome: text.currentTarget.value
+        nome: event.target.value
       }
     });
     console.log(this.state.ong.nome);
   };
 
-  _handleSituacao = text => {
+  _handleSituacao = event => {
     this.setState({
       renda: {
         ...this.state.renda,
-        situacao: text.currentTarget.value
+        situacao: event.target.value
       }
     });
     console.log(this.state.renda.situacao);
@@ -230,7 +230,7 @@ class RequisicaoForm extends React.Component {
               >
                 {this.state.ongs.map(ong => {
                   return (
-                    <MenuItem key={ong.uid} value={this.state.ong.nome}>
+                    <MenuItem key={ong.uid} value={ong.nome}>
                       {ong.nome}
                     </MenuItem>
                   );
@@ -248,15 +248,12 @@ class RequisicaoForm extends React.Component {
                 value={this.state.renda.situacao}
                 onChange={this._handleSituacao}
               >
-                <MenuItem
-                  onClick={this._handleSituacao}
-                  value={this.state.renda.situacao}
-                >
+                <MenuItem onClick={this._handleSituacao} value="Empregado(a)">
                   Empregado(a)
                 </MenuItem>
                 <MenuItem
                   onClick={this._handleSituacao}
-                  value={this.state.renda.situacao}
+                  value="Desempregado(a)"
                 >
                   Desempregado(a)
                 </MenuItem>
