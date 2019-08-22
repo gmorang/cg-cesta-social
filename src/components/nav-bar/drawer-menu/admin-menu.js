@@ -107,7 +107,7 @@ class AdminMenu extends React.Component {
                   icon={<LibraryBooks />}
                   text="Requisições"
                   component={Link}
-                  to="/requisicoes"
+                  to="/requisicao-admin"
                   onClick={toggleDrawer}
                   divider
                 />

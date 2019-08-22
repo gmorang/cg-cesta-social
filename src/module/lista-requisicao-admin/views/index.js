@@ -18,7 +18,7 @@ import Loading from '../../../components/loading';
 
 import RequisicaoMobile from './lista-requisicao-mobile';
 
-class RequisicaoUser extends React.Component {
+class RequisicaoAdmin extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -58,15 +58,12 @@ class RequisicaoUser extends React.Component {
                 <TableBody>
                   {this.state.requisicoes.map(row => {
                     console.log(this.state);
-                    let user = this.state.user.user;
-                    return user === row.user ? (
+                    return (
                       <RequisicaoRow
                         key={row.idRequisicao}
                         row={row}
                         onClick={() => this.handleClicked(row)}
                       />
-                    ) : (
-                      <p>Você não possuí requisições</p>
                     );
                   })}
                 </TableBody>
@@ -105,4 +102,4 @@ class RequisicaoUser extends React.Component {
   };
 }
 
-export default withRouter(RequisicaoUser);
+export default withRouter(RequisicaoAdmin);
