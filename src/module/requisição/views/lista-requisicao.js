@@ -40,7 +40,6 @@ class Requisicoes extends React.Component {
     if (user === null) {
       return <Loading />;
     }
-    console.log(user);
     return (
       <Grid item xs={12} style={{ marginTop: 90 }}>
         <Titulo>Requisições</Titulo>
@@ -58,7 +57,6 @@ class Requisicoes extends React.Component {
                 </TableHead>
                 <TableBody>
                   {this.state.requisicoes.map(row => {
-                    console.log(this.state);
                     let user = this.state.user.nome;
                     return user === row.ong.nome ? (
                       <RequisicaoRow

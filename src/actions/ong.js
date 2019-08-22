@@ -51,3 +51,20 @@ export const listaCesta = () => {
       console.log(err);
     });
 };
+
+export const updateCesta = async idCesta => {
+  return await firestore
+    .collection('cesta')
+    .where('idCesta', '==', idCesta)
+    .get()
+    .then(res => {
+      res.forEach(doc => {
+        firestore
+          .collection('cesta')
+          .doc(doc.id)
+          .update({
+            status: 'doada'
+          });
+      });
+    });
+};

@@ -209,12 +209,14 @@ class RequisicaoDetails extends React.Component {
 
   _handleAprova = async () => {
     let idRequisicao = this.state.requisicao.idRequisicao;
+    let idCesta = this.state.selectCesta;
     let { dataRetirada, message } = this.state;
     try {
       console.log(dataRetirada, message);
       actions.requisicao
-        .aprovaRequisicao(idRequisicao, dataRetirada, message)
+        .aprovaRequisicao(idRequisicao, dataRetirada, message, idCesta)
         .then(() => {
+          actions.ong.updateCesta(idCesta);
           this.setState({ isVisibleApprove: false });
           this.props.history.push('/requisicoes');
         });
