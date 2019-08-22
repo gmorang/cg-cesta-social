@@ -63,10 +63,9 @@ class RequisicaoDetails extends React.Component {
     console.log(this.state.message);
   };
 
-  _handleCesta = text => {
-    alert(text.currentTarget.value);
+  _handleCesta = event => {
     this.setState({
-      selectCesta: text.currentTarget.value
+      selectCesta: event.target.value
     });
   };
   _handleModal = () => {
@@ -289,25 +288,19 @@ class RequisicaoDetails extends React.Component {
                   />
                 </FormControl>
                 <Grid item xs={12}>
-                  <FormControl margin="dense" fullWidth>
-                    <InputLabel htmlFor="cestas">Cestas</InputLabel>
+                  <FormControl margin="normal" fullWidth>
+                    <InputLabel htmlFor="cesta">Selecione a cesta</InputLabel>
                     <Select
-                      id="ong"
-                      name="ong"
-                      value={this.state.cestas}
+                      id="cesta"
+                      name="cesta"
+                      value={this.state.selectCesta}
                       onChange={this._handleCesta}
-                      inputProps={{
-                        name: 'cesta',
-                        id: 'cesta-select'
-                      }}
                     >
                       {this.state.cestas.map(cesta => {
                         return (
                           <MenuItem
-                            key={cesta.idCesta}
-                            onChange={e => {
-                              alert(e.currentTarget.value);
-                            }}
+                            onClick={this._handleCesta}
+                            value={cesta.idCesta}
                           >
                             {cesta.idCesta}
                           </MenuItem>
